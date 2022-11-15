@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <title>포글라스 홈페이지</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="header"></div>
+    <div class="team">
+        포글라스
+    </div>
+    <div class="card" style="display:table; width:100%">
+        <div style="display:table-cell; vertical-align: center; horiz-align: center">
+            <image class="picture" src="../static/image/me.png"></image>
+        </div>
+        <div style="display:table-cell; vertical-align:top; horiz-align:right">
+            <h3>이름</h3>
+            <p style="text-align: left; font-size: 20px">길재형</p>
+            <hr class="dotted">
+            <h3>TMI</h3>
+            <p>현재 30살에 부산에 거주하고 있고 컴퓨터과학과를 전공했습니다. MBTI는 ISTP이고 작년 초에 스프링 교육을 들었습니다.</p>
+            <hr class="dotted">
+            <h3>자신의 장점 및 스타일</h3>
+            <p>스프링 교육 당시 자바와 스프링부트에 대해 깊게 잘 배워서 웹 개발에 대한 프로세스를 잘 알고 있습니다.</p>
+            <p>코딩을 할때 생각했던 목표를 달성할때까지 포기하지 않고 도전하는 스타일입니다.</p>
+            <hr class="dotted">
+            <h3>주소</h3>
+            <p>블로그 주소<a href="https://gstack.tistory.com/">바로가기</a></p>
+            <p>깃허브 주소<a href="https://github.com/Mrgil0/">바로가기</a></p>
+            <hr class="dotted">
+            <h3>방명록</h3>
+            <input class="name" type="text" id="name" name="name" placeholder="이름 입력" maxlength="3">
+            <input class="comment" id="comment" type="text" name="comment" placeholder="텍스트를 입력해주세요.">
+            <input class="pass" type="password" id="pass" name="pass" placeholder="패스워드" maxlength="4">
+            <p class="addComment" onclick="addComment()">추가</p>
+            <div style="overflow: hidden">
+                <p style="float:left; margin:0 3px; padding:10px; border: 1px;">이름</p>
+                <p style="float:left; margin:0 3px; padding:10px; border: 1px;">내용</p>
+            </div>
+            <hr class="dotted">
+            <div id="sampleDiv" >
+            </div>
+        </div>
+    </div>
+<script src="../static/js/team1.js"></script>
+</body>
+</html>
