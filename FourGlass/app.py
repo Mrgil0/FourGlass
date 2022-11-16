@@ -45,9 +45,17 @@ def team4_read_review():
 @app.route("/fourglass/team4_delete_review", methods=["POST"])
 def team4_delete_review():
     num_receive = request.form['num_give']
-    print(num_receive)
-    print(type(num_receive))
     db.team4.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': 'linked'})
+
+
+@app.route("/fourglass/team4_update_review", methods=["POST"])
+def team4_update_review():
+    num_receive = request.form['num_give']
+    input_receive = request.form['input_give']
+    db.team4.update_one(
+        {'num': int(num_receive)},
+        {'$set': {'review': input_receive}})
     return jsonify({'msg': 'linked'})
 
 
@@ -57,16 +65,14 @@ def team4_release_review():
     return jsonify({'msg': 'linked'})
 
 # 팀 소개 페이지의 댓글 수정
+# @app.route("/fourglass/team4_update_review", methods=["POST"])
+# def team4_update_review():
+#     review_receive = request.form['review_give']
+#     num_receive = request.form['num_give']
 
-
-@app.route("/fourglass/team4_update_review", methods=["POST"])
-def team4_update_review():
-    review_receive = request.form['review_give']
-    num_receive = request.form['num_give']
-
-    db.team4.update_one({'num': num_receive}, {
-                        '$set': {'reivew': review_receive}})
-    return jsonify({'msg': '연결'})
+#     db.team4.update_one({'num': num_receive}, {
+#                         '$set': {'reivew': review_receive}})
+#     return jsonify({'msg': '연결'})
 
 
 # -----------------------송지훈-----------------------------*
@@ -75,6 +81,7 @@ def team4_update_review():
 @app.route('/')
 def home():
     return render_template('mainpage.html')
+
 
 @app.route("/", methods=["POST"])
 def main_post():
@@ -94,9 +101,9 @@ def main_get():
     main_list = list(db.main.find({}, {'_id': False}))
     return jsonify({'main': main_list})
 
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
 
 
 # ----------------------------------------------
@@ -162,7 +169,8 @@ def team1_get_cmt():
 @app.route("/fourglass/team1_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
 def team1_find_cmt():
     id_receive = int(request.form['id_give'])
-    find_list = list(db.team1_comment.find({"idx": id_receive}, {'_id': 0}))  #'_id' 제외(0)하고 찾음
+    find_list = list(db.team1_comment.find(
+        {"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
     return jsonify({'result': find_list})
 
 
@@ -196,6 +204,7 @@ def teamTwo_post():
 def teamTwo_get():
     comment_list = list(db.teamTwo.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
