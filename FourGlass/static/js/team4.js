@@ -1,4 +1,4 @@
-const teamPage = document.querySelector("#teamHeader");
+{const teamPage = document.querySelector("#teamHeader");
 const teamBtns = document.querySelectorAll("#btn-box button");
 const btnReview = document.querySelector("#btn-review");
 const inputReview = document.querySelector("#input-review");
@@ -8,7 +8,7 @@ const reviews = document.querySelector("#reviews");
 (() => {
   $.ajax({
     type: "GET",
-    url: "/jh/review",
+    url: "/team4/review",
     data: {},
     success: (response) => {
       for (const review of response.reviews) {
@@ -65,13 +65,15 @@ function insertDB(review) {
     inputReview.focus();
     return;
   }
-
+  
   $.ajax({
     type: "POST",
-    url: "/jh/review",
+    url: "/team4/review",
     data: { review_give: review },
     success: (response) => {
-      window.location.reload();
+      console.log('test')
+      // window.location.reload();
     },
   });
+}
 }

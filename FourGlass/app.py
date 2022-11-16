@@ -17,30 +17,47 @@ db = client.sparta
 def home():
     return render_template('mainpage.html')
 
-# 송지훈 개인페이지
+# *----------------------송지훈------------------------------
+
+
 @app.route('/team4')
 def jh():
     return render_template('team4.html')
 
-# 송지훈 개인페이지
+
 @app.route("/team4/review", methods=["POST"])
 def insertReviewPost():
     review_receive = request.form['review_give']
+    count=0
+    if (db.jh.count_documents({}) != 0):
+        count = (db.jh.find({}, {'_id': False})[0]['num']) + 1
 
+    print(type(count))
+    print(count)
     doc = {
         'review': review_receive,
+        'num': count,
     }
-    db.jh.insert_one(doc)
+    # db.jh.insert_one(doc)
     return jsonify({'msg': '저장완료'})
 
-# 송지훈 개인페이지
+
 @app.route("/team4/review", methods=["GET"])
 def homework_get_jh():
     reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
-    print(reviews)
+
     return jsonify({'reviews': reviews})
 
+@app.route("/reviewUpdate", methods=["POST"])
+def reviewUpdate():
+    review_receive = request.form['review_give']
+    num_receive = request.form['num_give']
 
+    db.jh.update_one({'num':num_receive},{'$set':{'reivew':review_receive}})
+    return jsonify({'msg': '연결'})
+
+
+# -----------------------송지훈-----------------------------*
 
 @app.route("/", methods=["POST"])
 def intro_maindet():
