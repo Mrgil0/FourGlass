@@ -10,7 +10,6 @@ client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?re
                      tlsCAFile=ca)
 db = client.sparta
 
-
 @app.route('/')
 def home():
     return render_template('team1.html')
@@ -67,6 +66,11 @@ def fourglass_addReply():
 
     db.reply.insert_one(doc)
     return render_template('team1.html')
+
+@app.route("/fourglass/createIndex", methods=["GET"])
+def fourglass_createIndex():
+    find_list = list(db.comment.find({'idx': {"$gt": 0}}))
+    return jsonify({'result': find_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
