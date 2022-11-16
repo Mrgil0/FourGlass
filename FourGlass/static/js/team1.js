@@ -1,31 +1,9 @@
 $(document).ready(function(){
     show_comment()
+    num = create_index()
 });
 let num;
 
-function addComment(){
-    if($('.name').val()=="" || $('.comment').val()=="" || $('#pass').val()==""){
-        alert('이름이나 내용을 입력해주세요.');
-        return;
-    }
-    let name = $('#name').val();
-    let comment = $('#comment').val();
-    let pass = $('.pass').val();
-    let idx = create_index()
-    alert(idx)
-    $.ajax({
-        type : 'POST',
-        url : '/homework',
-        data : {'idx_give':idx, 'name_give':name, 'comment_give':comment, 'pass_give':pass},
-        success: function(response){
-            alert("추가되었습니다.")
-            location.reload()
-        },
-        error : function(response){
-            console.log(response);
-        }
-    });
-}
 function create_index(){
     $.ajax({
         type : "GET",
@@ -39,6 +17,31 @@ function create_index(){
     });
     return num
 }
+
+function addComment(){
+    if($('.name').val()=="" || $('.comment').val()=="" || $('#pass').val()==""){
+        alert('이름이나 내용을 입력해주세요.');
+        return;
+    }
+    let name = $('#name').val();
+    let comment = $('#comment').val();
+    let pass = $('.pass').val();
+    let idx = num
+    console.log(idx)
+    $.ajax({
+        type : 'POST',
+        url : '/homework',
+        data : {'idx_give':idx, 'name_give':name, 'comment_give':comment, 'pass_give':pass},
+        success: function(response){
+            alert("추가되었습니다.")
+            location.reload()
+        },
+        error : function(response){
+            console.log(response);
+        }
+    });
+}
+
 function show_comment(){
     $('#sampleDiv').empty()
     $.ajax({
