@@ -138,7 +138,7 @@
         function set_temp() {
             $.ajax({
                 type: "GET",
-                url: "/intro",
+                url: "/team3",
                 data: {},
                 success: function (response) {
                     $('#temp').text(response['temp'])
@@ -166,7 +166,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/intro',
+                url: '/team3',
                 data: {name_give: name, comment_give: comment},
                 success: function (response) {
                     alert(response['msg'])
@@ -178,10 +178,10 @@
         function show_comment() {
             $.ajax({
                 type: "GET",
-                url: "/intro",
+                url: "/team3",
                 data: {},
                 success: function (response) {
-                    let rows = response['intro']
+                    let rows = response['team3']
                     for (let i = 0; i < rows.length; i++) {
                         let name = rows[i]['name']
                         let comment = rows[i]['comment']
