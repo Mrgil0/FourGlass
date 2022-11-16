@@ -12,6 +12,7 @@ function addComment(){
     let comment = $('#comment').val();
     let pass = $('.pass').val();
     let idx = create_index()
+    alert(idx)
     $.ajax({
         type : 'POST',
         url : '/homework',
@@ -27,8 +28,16 @@ function addComment(){
 }
 function create_index(){
     $.ajax({
-
+        type : "GET",
+        url : "/fourglass/createIndex",
+        data : {},
+        success : function(response){
+            let row = response['result']
+            num = row['idx'] + 1
+            alert(num)
+        }
     });
+    return num
 }
 function show_comment(){
     $('#sampleDiv').empty()
