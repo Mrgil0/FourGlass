@@ -16,39 +16,56 @@ db = client.sparta
 
 
 @app.route('/team4')
-def jh():
+def team4():
     return render_template('team4.html')
 
 
-@app.route("/team4/review", methods=["POST"])
-def insertReviewPost():
+@app.route("/fourglass/team4_insert_review", methods=["POST"])
+def team4_insert_review():
     review_receive = request.form['review_give']
-    count=0
-    if (db.jh.count_documents({}) != 0):
-        count = (db.jh.find({}, {'_id': False})[0]['num']) + 1
+    count = 0
+    if (db.team4.count_documents({}) != 0):
+        count = (db.team4.find({}, {'_id': False}).sort(
+            '_id', -1)[0]['num']) + 1
 
-    print(type(count))
-    print(count)
     doc = {
         'review': review_receive,
         'num': count,
     }
-    # db.jh.insert_one(doc)
+    db.team4.insert_one(doc)
     return jsonify({'msg': '저장완료'})
 
 
-@app.route("/team4/review", methods=["GET"])
-def homework_get_jh():
-    reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
-
+@app.route("/fourglass/team4_read_review", methods=["GET"])
+def team4_read_review():
+    reviews = list(db.team4.find({}, {'_id': False}).sort('_id', -1).limit(3))
     return jsonify({'reviews': reviews})
 
-@app.route("/reviewUpdate", methods=["POST"])
-def reviewUpdate():
+
+@app.route("/fourglass/team4_delete_review", methods=["POST"])
+def team4_delete_review():
+    num_receive = request.form['num_give']
+    print(num_receive)
+    print(type(num_receive))
+    db.team4.delete_one({'num': int(num_receive)})
+    return jsonify({'msg': 'linked'})
+
+
+@app.route("/fourglass/team4_release_review", methods=["GET"])
+def team4_release_review():
+    db.team4.delete_many({})
+    return jsonify({'msg': 'linked'})
+
+# 팀 소개 페이지의 댓글 수정
+
+
+@app.route("/fourglass/team4_update_review", methods=["POST"])
+def team4_update_review():
     review_receive = request.form['review_give']
     num_receive = request.form['num_give']
 
-    db.jh.update_one({'num':num_receive},{'$set':{'reivew':review_receive}})
+    db.team4.update_one({'num': num_receive}, {
+                        '$set': {'reivew': review_receive}})
     return jsonify({'msg': '연결'})
 
 
@@ -119,7 +136,7 @@ def intro_get():
 # ------------------team3yook---------------------------------
 
 # =======
-@app.route("/fourglass/team1_add_cmt", methods=["POST"])    #댓글 남기기
+@app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 댓글 남기기
 def team1_add_cmt():
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
@@ -136,26 +153,27 @@ def team1_add_cmt():
     return jsonify({'msg': '작성 완료!'})
 
 
-@app.route("/fourglass/team1_get_cmt", methods=["GET"])     #댓글목록 가져오기
+@app.route("/fourglass/team1_get_cmt", methods=["GET"])  # 댓글목록 가져오기
 def team1_get_cmt():
     comment_list = list(db.team1_comment.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
 
-@app.route("/fourglass/team1_find_cmt", methods=["POST"])   #댓글의 인덱스 번호 찾기
+
+@app.route("/fourglass/team1_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
 def team1_find_cmt():
     id_receive = int(request.form['id_give'])
     find_list = list(db.team1_comment.find({"idx": id_receive}, {'_id': 0}))  #'_id' 제외(0)하고 찾음
     return jsonify({'result': find_list})
 
-@app.route("/fourglass/team1_del_cmt", methods=["POST"])    #팀원1의 댓글 삭제
+
+@app.route("/fourglass/team1_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
 def team1_del_cmt():
     id_receive = int(request.form["id_give"])
     db.team1_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
+
 @app.route("/4glass", methods=["POST"])
-
-
 @app.route('/team2')
 def team2():
     return render_template('team2.html')
