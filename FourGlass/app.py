@@ -1,15 +1,13 @@
-from pymongo import MongoClient
-import certifi
+# import certifi
 
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-ca = certifi.where()
-
-client = MongoClient(
-    "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client.sparta
+# ca = certifi.where()
+from pymongo import MongoClient
+client = MongoClient('mongodb+srv://test:sparta@cluster0.4gwwh2d.mongodb.net/?retryWrites=true&w=majority')
+db = client.dbsparta
 
 
 # ------------------메인페이지 댓글----------------
@@ -17,40 +15,12 @@ db = client.sparta
 def home():
     return render_template('mainpage.html')
 
-# 송지훈 개인페이지
 
-
-@app.route('/jh')
-def jh():
-    return render_template('jh.html')
-
-# 송지훈 개인페이지
-
-
-@app.route("/jh/review", methods=["POST"])
-def insertReviewPost():
-    review_receive = request.form['review_give']
-
-    doc = {
-        'review': review_receive,
-    }
-    db.jh.insert_one(doc)
-    return jsonify({'msg': '저장완료'})
-
-# 송지훈 개인페이지
-
-
-@app.route("/jh/review", methods=["GET"])
-def homework_get_jh():
-    reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
-    print(reviews)
-    return jsonify({'reviews': reviews})
-
-@app.route("/", methods=["POST"])
-def intro_maindet():
+@app.route("/maindet", methods=["POST"])
+def maindet_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    maindet_list = list(db.imaindet.find({}, {'_id': False}))
+    maindet_list = list(db.maindet.find({}, {'_id': False}))
     count = len(maindet_list) + 1
 
     doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
@@ -63,6 +33,12 @@ def intro_maindet():
 def maindet_get():
     maindet_list = list(db.maindet.find({}, {'_id': False}))
     return jsonify({'intro': maindet_list})
+
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
+
+
 
 
 # ----------------------------------------------
