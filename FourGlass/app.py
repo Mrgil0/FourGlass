@@ -121,12 +121,13 @@ def intro_get():
 # =======
 @app.route("/fourglass/team1_add_cmt", methods=["POST"])    #댓글 남기기
 def team1_add_cmt():
-    id_receive = int(request.form["idx_give"])
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
     pass_receive = request.form["pass_give"]
+    comment_list = list(db.team1_comment.find({}, {'_id': False}))
+    count = len(comment_list) + 1
     doc = {
-        'idx': id_receive,
+        'idx': count,
         'name': name_receive,
         'comment': comment_receive,
         'pass': pass_receive
