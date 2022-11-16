@@ -26,7 +26,7 @@ def intro_maindet():
     doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
     db.maindet.insert_one(doc)
 
-    return jsonify({'msg':'응원 감사합니다!!'})
+    return jsonify({'msg':'댓글감사합니다!!'})
 
 
 
