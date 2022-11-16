@@ -92,7 +92,19 @@
         .card {
             margin: 5px;
         }
+        .commentteb {
 
+            margin-top: 20px;
+            box-shadow: 0px 0px 3px 0px black;
+            padding: 20px;
+            width: 55%;
+            height: 280px;
+
+            overflow: auto;
+            word-break: break-all;
+
+
+        }
 
     </style>
 
@@ -117,7 +129,8 @@
         <div id="Form">
             <input type="text" id="name" placeholder="닉네임"/>
             <input type="text" id="comment" placeholder="댓글"/>
-            <button onclick="save_maincomment()">댓글 달기</button>
+            <button onclick="save_comment()">댓글 달기</button>
+            <div class="commentteb" id="comment-list">
         </div>
         <ul id="ggyuls">
         </ul>
