@@ -34,41 +34,6 @@
             align-items: center;
         }
 
-        .mytitle > button {
-            width: 200px;
-            height: 50px;
-
-            background-color: transparent;
-            color: white;
-
-            border-radius: 50px;
-
-            border: 1px solid white;
-            margin-top: 10px;
-        }
-
-        .mytitle > button:hover {
-            border: 2px solid white;
-        }
-
-        .mypost {
-            max-width: 700px;
-            width: 95%;
-            margin: 20px auto 20px auto;
-            box-shadow: 0px 0px 3px 0px gray;
-            padding: 20px;
-            text-align: center;
-            display: none;
-
-        }
-
-        .mybtn {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-        }
 
         .mybtn > button {
             margin-right: 10px;
@@ -77,18 +42,30 @@
         .mymain {
             margin: 20px;
             border: 3px solid black;
-            background-color: green;
-            height: 650px;
+            max-height: 650px;
             min-width: 1200px;
             background-position: center;
             background-size: cover;
+            background-image: url("/static/image/notepad.jpg");
 
             color: black;
 
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .mymain > div {
+
+            border: 1px solid black;
+            margin: 10px;
+            padding: 5px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .commentForm {
+            height: 500px;
         }
 
         .myphoto {
@@ -98,6 +75,7 @@
             min-width: 1200px;
             background-position: center;
             background-size: cover;
+            background-image: url("/static/image/night.jpg");
 
             display: flex;
             flex-direction: column;
@@ -115,14 +93,7 @@
             margin: 5px;
         }
 
-        .main > div {
-            width: 550px;
-            height: 600px;
-            border: 1px solid black;
-            float: left;
-            margin: 10px;
-            padding: 5px;
-        }
+
     </style>
 
 </head>
@@ -130,102 +101,26 @@
 <div class="mytitle">
     <h1>Four Glass</h1>
 </div>
-<!------------------------수정사항--------------->
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
 
-
-    $(document).ready(function () {
-        set_temp()
-        show_comment()
-    });
-
-    function set_temp() {
-        $.ajax({
-            type: "GET",
-            url: "/maindet",
-            data: {},
-            success: function (response) {
-                $('#temp').text(response['temp'])
-            }
-        })
-
-
-    }
-
-    function save_maincomment() {
-        let name = $('#name').val()
-        let comment = $('#comment').val()
-
-        if ($("#name").val().length == 0) {
-            alert("이름을 입력해주세요!");
-            $("#name").focus();
-            return false;
-        }
-
-        if ($("#comment").val().length == 0) {
-            alert("응원해주세요~");
-            $("#comment").focus();
-            return false;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: '/maindet',
-            data: {name_give: name, comment_give: comment},
-            success: function (response) {
-                alert(response['msg'])
-                window.location.reload()
-            }
-        })
-    }
-    function show_comment() {
-            $.ajax({
-                type: "GET",
-                url: "/maindet",
-                data: {},
-                success: function (response) {
-                    let rows = response['intro']
-                    for (let i = 0; i < rows.length; i++) {
-                        let name = rows[i]['name']
-                        let comment = rows[i]['comment']
-
-
-                        let temp_html = `<div class="card" >
-                                            <div class="card-body" style="box-shadow: black">
-                                                <blockquote class="blockquote mb-0">
-                                                    <p><span style="color: #7140dd">닉네임:</span> ${name}</p>
-                                                    <footer onclick="done_intro()" class="blockquote-footer">${comment}</footer>
-                                                </blockquote>
-                                            </div>
-                                        </div>`
-                        $('#comment-list').append(temp_html)
-
-
-                    }
-                }
-            });
-        }
-
-// -----------------------------------
-
-</script>
+<script src="../static/js/comment.js"></script>
 
 <div class="mymain">
-    <div class="main">
+    <div>
         <div>
-
+            <h1>여기에 팀 소개를 합니다</h1>
+            <h2>팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형</h2>
+            <h4>안녕</h4>
         </div>
-        <div>
-            <h1>여기를 수정해 주세요</h1>
-            <form id="Form">
-                <input type="text" id="code" placeholder="code"/>
-                <input type="text" id="ggyul" placeholder="ggyul"/>
-                <button onclick="save_maincomment()">댓글 달기</button>
-            </form>
-            <ul id="ggyuls">
-            </ul>
+    </div>
+    <div class="commentForm">
+        <h1>여기를 수정해 주세요</h1>
+        <div id="Form">
+            <input type="text" id="name" placeholder="닉네임"/>
+            <input type="text" id="comment" placeholder="댓글"/>
+            <button onclick="save_comment()">댓글 달기</button>
         </div>
+        <ul id="ggyuls">
+        </ul>
     </div>
 </div>
 <div class="myphoto">
@@ -236,7 +131,7 @@
                 <div class="card-body">
                     <h5 class="card-title">유상우(팀장)</h5>
                     <p class="card-text">010-7329-5467</p>
-                    <a href="one" class="btn btn-secondary">Go!</a>
+                    <a href="team2" class="btn btn-secondary">Go!</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -244,7 +139,7 @@
                 <div class="card-body">
                     <h5 class="card-title">길재형</h5>
                     <p class="card-text">나는 거북이당</p>
-                    <a href="two" class="btn btn-primary">Go!</a>
+                    <a href="team1" class="btn btn-primary">Go!</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -252,7 +147,7 @@
                 <div class="card-body">
                     <h5 class="card-title">송지훈</h5>
                     <p class="card-text">나는 거북이당</p>
-                    <a href="three" class="btn btn-primary">Go!</a>
+                    <a href="/team4" class="btn btn-primary">Go!</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -260,7 +155,7 @@
                 <div class="card-body">
                     <h5 class="card-title">육준호</h5>
                     <p class="card-text">나는 거북이당</p>
-                    <a href="four" class="btn btn-primary">Go!</a>
+                    <a href="team3" class="btn btn-primary">Go!</a>
                 </div>
             </div>
         </div>
