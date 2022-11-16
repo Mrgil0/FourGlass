@@ -5,8 +5,8 @@ function isDefined(value){
     return true
 }
 
-function comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
-    if($('.name').val()=="" || $('.comment').val()=="" || $('#pass').val()==""){ //유효성 검사
+function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
+    if($('.name').val()=="" || $('.team1comment').val()=="" || $('#pass').val()==""){ //유효성 검사
         alert('이름이나 내용을 입력해주세요.');
         return;
     }
@@ -35,9 +35,9 @@ function comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추
         }
         idx++
         let name = $('#name').val();
-        let comment = $('#comment').val();
+        let comment = $('#team1comment').val();
         let pass = $('.pass').val();
-        $.ajax({
+        $.ajax({    //댓글 추가
             type : 'POST',
             url : add_url,          //클릭한 버튼의 url
             data : {'idx_give':idx, 'name_give':name, 'comment_give':comment, 'pass_give':pass},
@@ -63,7 +63,7 @@ function show_comment(show_url){
             for(let i=0; i<rows.length; i++){
                 let idx = rows[i]['idx']
                 let name = rows[i]['name']
-                let comment = rows[i]['comment']
+                let comment = rows[i]['team1comment']
                 let temp_div = `<div style="overflow: hidden" id="replyCmt">
                                     <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${name}</p>
                                     <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${comment}</p>
