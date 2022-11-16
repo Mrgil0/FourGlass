@@ -71,7 +71,7 @@
             let comment = $('#comment').val()
             $.ajax({
                 type: 'POST',
-                url: '/4glass',
+                url: '/fourglass/team2/addReply',
                 data: {name_give: name, comment_give: comment},
                 success: function (response) {
                     alert(response['msg'])
@@ -83,7 +83,7 @@
         function show_comment() {
             $.ajax({
                 type: "GET",
-                url: "/4glass",
+                url: "/fourglass/team2/findReply",
                 data: {},
                 success: function (response) {
                     let rows = response['comments']
@@ -112,13 +112,13 @@
 <div>
     <a>
         <div class="mypic">
-            <h1><a href="mainpage.html" style="color : white; text-decoration: none;">Four Glass</a></h1>
+            <h1><a href="/" style="color : white; text-decoration: none;">Four Glass</a></h1>
         </div>
     </a></div>
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-4" style="border: 1px solid; width: 300px">
-            <img src="../static/image/ryu.jpg" class="img-fluid rounded-start" alt="...">
+            <img src="/static/image/ryu.jpg" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-3" style="border-right: 1px solid; min-width: 270px; max-width: 270px">
             <div class="card-body">
@@ -134,7 +134,7 @@
                 <p class="card-text">청강문화산업대학 모바일통신과 전공으로 무선설비, 통신선로 산업기사 자격증 보유중</p>
                 <p class="card-text">전공수업으로 프로그래밍을 하면서 나름 흥미를 느꼈어서 전역 후 찍먹해 보려고</p>
                 <p class="card-text">웹개발 종합반 수업을 들었었는데 맘에 들어서 내배캠까지 지원하게 되었습니다.</p>
-                <img style="width: 200px" src="../static/image/rabbit.png">
+                <img style="width: 200px" src="/static/image/rabbit.png">
                 <p class="card-text">나는 거북이당</p>
             </div>
         </div>
