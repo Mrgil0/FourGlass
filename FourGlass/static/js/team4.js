@@ -31,11 +31,11 @@ for (const btn of teamBtns) {
     const name = btn.textContent.trim();
     let url;
     if (name === "길재형") {
-      url = "/team2";
-    } else if (name === "유상우") {
-      url = "/team0";
-    } else {
       url = "/team1";
+    } else if (name === "유상우") {
+      url = "/team2";
+    } else {
+      url = "/team3";
     }
     accessURL(url);
   });

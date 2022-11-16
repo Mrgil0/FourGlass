@@ -1,14 +1,15 @@
-# import certifi
+from pymongo import MongoClient
+import certifi
 
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# ca = certifi.where()
-from pymongo import MongoClient
-client = MongoClient('mongodb+srv://test:sparta@cluster0.4gwwh2d.mongodb.net/?retryWrites=true&w=majority')
-# 클라이언트 '' 안에 몽고로 연결되는 비밀번호랑 같이있는걸로 알아요 나중에 시험해보실분 몽고주소로 변경해주시면 될거같아요
-db = client.dbsparta
+ca = certifi.where()
+
+client = MongoClient(
+    "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+db = client.sparta
 
 
 # ------------------메인페이지 댓글----------------
@@ -16,28 +17,48 @@ db = client.dbsparta
 def home():
     return render_template('mainpage.html')
 
-@app.route("/main", methods=["POST"])
-def intro_post():
+# 송지훈 개인페이지
+@app.route('/team4')
+def jh():
+    return render_template('team4.html')
+
+# 송지훈 개인페이지
+@app.route("/team4/review", methods=["POST"])
+def insertReviewPost():
+    review_receive = request.form['review_give']
+
+    doc = {
+        'review': review_receive,
+    }
+    db.jh.insert_one(doc)
+    return jsonify({'msg': '저장완료'})
+
+# 송지훈 개인페이지
+@app.route("/team4/review", methods=["GET"])
+def homework_get_jh():
+    reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
+    print(reviews)
+    return jsonify({'reviews': reviews})
+
+
+
+@app.route("/", methods=["POST"])
+def intro_maindet():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    main_list = list(db.main.find({}, {'_id': False}))
-    count = len(main_list) + 1
+    maindet_list = list(db.imaindet.find({}, {'_id': False}))
+    count = len(maindet_list) + 1
 
-    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
-    db.main.insert_one(doc)
+    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    db.maindet.insert_one(doc)
 
-    return jsonify({'msg':'어서오세요!'})
-
-
-
-@app.route("/main", methods=["GET"])
-def main_get():
-    main_list = list(db.main.find({}, {'_id': False}))
-    return jsonify({'intro':main_list})
+    return jsonify({'msg': '댓글감사합니다!!'})
 
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+@app.route("/maindet", methods=["GET"])
+def maindet_get():
+    maindet_list = list(db.maindet.find({}, {'_id': False}))
+    return jsonify({'intro': maindet_list})
 
 
 # ----------------------------------------------
