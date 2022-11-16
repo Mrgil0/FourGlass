@@ -11,8 +11,6 @@ client = MongoClient(
     "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client.sparta
 
-# 팀소개 페이지
-
 
 # ------------------메인페이지 댓글----------------
 @app.route('/')
