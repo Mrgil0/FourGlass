@@ -179,19 +179,20 @@
             }
         })
     }
-     function show_comment() {
-            $.ajax({
-                type: "GET",
-                url: "/maindet",
-                data: {},
-                success: function (response) {
-                    let rows = response['maindet']
-                    for (let i = 0; i < rows.length; i++) {
-                        let name = rows[i]['name']
-                        let comment = rows[i]['comment']
+
+    function show_comment() {
+        $.ajax({
+            type: "GET",
+            url: "/maindet",
+            data: {},
+            success: function (response) {
+                let rows = response['maindet']
+                for (let i = 0; i < rows.length; i++) {
+                    let name = rows[i]['name']
+                    let comment = rows[i]['comment']
 
 
-                        let temp_html = `<div class="card" >
+                    let temp_html = `<div class="card" >
                                             <div class="card-body" style="box-shadow: black">
                                                 <blockquote class="blockquote mb-0">
                                                     <p><span style="color: black">닉네임:</span> ${name}</p>
@@ -199,14 +200,15 @@
                                                 </blockquote>
                                             </div>
                                         </div>`
-                        $('#comment-list').append(temp_html)
+                    $('#comment-list').append(temp_html)
 
 
-                    }
                 }
-            });
-        }
-// -----------------------------------
+            }
+        });
+    }
+
+    // -----------------------------------
 
 </script>
 
