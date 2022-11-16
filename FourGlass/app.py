@@ -11,6 +11,35 @@ client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?re
 db = client.sparta
 
 
+# ------------------메인페이지 댓글----------------
+@app.route('/')
+def home():
+    return render_template('mainpage.html')
+
+@app.route("/", methods=["POST"])
+def intro_maindet():
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
+    maindet_list = list(db.imaindet.find({}, {'_id': False}))
+    count = len(maindet_list) + 1
+
+    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
+    db.maindet.insert_one(doc)
+
+    return jsonify({'msg':'응원 감사합니다!!'})
+
+
+
+@app.route("/maindet", methods=["GET"])
+def maindet_get():
+    maindet_list = list(db.maindet.find({}, {'_id': False}))
+    return jsonify({'intro':maindet_list})
+
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
+# ----------------------------------------------
+
 @app.route('/')
 def home():
     return render_template('team1.html')
