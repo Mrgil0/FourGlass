@@ -96,8 +96,7 @@ def intro_get():
 # ------------------team3yook---------------------------------
 
 # =======
-# >>>>>>> 9946db5f51c57e6651ddee92391d70e3d46cac31
-@app.route("/fourglass/team1_add_cmt", methods=["POST"])
+@app.route("/fourglass/team1_add_cmt", methods=["POST"])    #댓글 남기기
 def homework_post():
     idx_receive = int(request.form["idx_give"])
     name_receive = request.form["name_give"]
@@ -106,53 +105,31 @@ def homework_post():
     doc = {
         'idx': idx_receive,
         'name': name_receive,
-        'team1comment': comment_receive,
+        'comment': comment_receive,
         'pass': pass_receive
     }
     db.comment.insert_one(doc)
     return jsonify({'msg': '작성 완료!'})
 
 
-@app.route("/fourglass/team1_get_cmt", methods=["GET"])
+@app.route("/fourglass/team1_get_cmt", methods=["GET"])     #댓글목록 가져오기
 def homework_get():
     comment_list = list(db.comment.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
 
-@app.route("/fourglass/team1_find_reply", methods=["POST"])
-
-def fourglass_findReply():
-    idx_receive = request.form["id_give"]
-    find_list = list(db.reply.find({"idx": idx_receive}))
-    return jsonify({'result': find_list})
-
-
-@app.route("/fourglass/team1_find_cmt", methods=["POST"]) #댓글의 인덱스 번호 찾기
+@app.route("/fourglass/team1_find_cmt", methods=["POST"])   #댓글의 인덱스 번호 찾기
 def homework_find():
     id_receive = int(request.form['id_give'])
     find_list = list(db.comment.find({"idx": id_receive}, {'_id': 0}))
     return jsonify({'result': find_list})
 
-@app.route("/fourglass/team1_del_cmt", methods=["POST"]) #팀원1의 댓글 삭제
+@app.route("/fourglass/team1_del_cmt", methods=["POST"])    #팀원1의 댓글 삭제
 
 def homework_del():
     id_receive = int(request.form["id_give"])
     db.comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
-
-@app.route("/fourglass/addReply", methods=["POST"])
-def fourglass_addReply():
-    idx_receive = request.form["idx"]
-    name_receive = request.form["name"]
-    text_receive = request.form["text"]
-    doc = {
-        'idx': idx_receive,
-        'name': name_receive,
-        'reply': text_receive,
-    }
-
-    db.reply.insert_one(doc)
-    return render_template('team1.html')
 @app.route("/4glass", methods=["POST"])
 
 

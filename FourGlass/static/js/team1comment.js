@@ -31,11 +31,11 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
         isDefined(rows[0]['idx']) ? idx=0 : idx=1 //db에 아무것도 없을 경우 idx가 undefined가 되어 1로 지정
         for(let i=0; i<rows.length; i++) {
             let temp = rows[i]['idx']
-            if(temp>idx) {idx=temp}
+            if(temp>idx) {idx=temp}  //db의 제일 큰값이 idx가 됨
         }
         idx++
         let name = $('#name').val();
-        let comment = $('#team1comment').val();
+        let comment = $('#comment').val();
         let pass = $('.pass').val();
         $.ajax({    //댓글 추가
             type : 'POST',
@@ -52,8 +52,8 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
     })
 }
 
-function show_comment(show_url){
-    $('#sampleDiv').empty()
+function show_comment(show_url, add_tag){
+    $(add_tag).empty() // 댓글칸 비우기
     $.ajax({
         type : 'get',
         url : show_url,
@@ -63,16 +63,13 @@ function show_comment(show_url){
             for(let i=0; i<rows.length; i++){
                 let idx = rows[i]['idx']
                 let name = rows[i]['name']
-                let comment = rows[i]['team1comment']
+                let comment = rows[i]['comment']
                 let temp_div = `<div style="overflow: hidden" id="replyCmt">
                                     <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${name}</p>
                                     <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${comment}</p>
-                                    <button style="float:left; class="`+ idx +`"margin-top:7px" id="openReply" type="button" class="\` + idx + \`">↓</button>
-                                    <button class="${rows[i]['idx']}" id="replyBtn" type="button" style="float:left; margin:0 3px; padding:10px; border: 1px;">댓글</button>
-                                    <button class="${rows[i]['idx']}" id="delBtn" type="button" style="float:right; margin:0 3px; padding:10px; border: 1px;">삭제</button>
-                                </div>
-                                <div id="replyModal" class="modal`+ idx +`" style="display:none">댓글이 보여지는 곳</div>`
-                $('#sampleDiv').append(temp_div)
+                                    <button class="${idx}" id="delBtn" type="button" style="float:right; margin:0 3px; padding:10px; border: 1px;">삭제</button>
+                                </div>`
+                $(add_tag).append(temp_div)
             }
         }
     })
