@@ -20,9 +20,9 @@
         }
 
         .mytitle {
-            background-color: green;
+
             height: 250px;
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg");
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
             background-position: center;
             background-size: cover;
 
@@ -46,9 +46,9 @@
             min-width: 1200px;
             background-position: center;
             background-size: cover;
-            background-image: url("/static/image/notepad.jpg");
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/image/notepad.jpg");
 
-            color: black;
+            color: white;
 
             display: flex;
             flex-direction: column;
@@ -104,8 +104,6 @@
 <!------------------------수정사항--------------->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
-
-
     $(document).ready(function () {
         set_temp()
         show_comment()
@@ -172,8 +170,6 @@
                                             </div>
                                         </div>`
                     $('#comment-list').append(temp_html)
-
-
                 }
             }
         });
@@ -188,7 +184,7 @@
         <div>
             <h1>여기에 팀 소개를 합니다</h1>
             <h2>팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형</h2>
-            <h4>안녕</h4>
+            <h3>내용을 입력해주세요</h3>
         </div>
     </div>
     <div class="commentForm">
