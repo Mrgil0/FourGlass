@@ -17,15 +17,33 @@
           const num = review.num;
           const element = document.createElement("li");
           const btnDel = document.createElement("button");
+          const btnUpdate = document.createElement("button");
           element.textContent = review.review;
-          btnDel.textContent = "del";
+          btnDel.textContent = "삭제";
+          btnUpdate.textContent = "수정";
           reviews.appendChild(element);
           element.appendChild(btnDel);
+          element.appendChild(btnUpdate);
+
+          //삭제버튼 클릭시 삭제
           btnDel.addEventListener("click", () => {
             $.ajax({
               type: "POST",
               url: "/fourglass/team4_delete_review",
               data: { num_give: num },
+              success: (response) => {
+                window.location.reload();
+              },
+            });
+          });
+
+          btnUpdate.addEventListener("click", () => {
+            const modiInput = prompt("수정하실 내용을 적어주세요.");
+            console.log(modiInput);
+            $.ajax({
+              type: "POST",
+              url: "/fourglass/team4_update_review",
+              data: { num_give: num, input_give: modiInput },
               success: (response) => {
                 window.location.reload();
               },
