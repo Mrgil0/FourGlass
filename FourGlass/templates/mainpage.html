@@ -20,43 +20,20 @@
         }
 
         .mytitle {
-
+            background-color: green;
             height: 250px;
-
-            background-color: black;
-            color: white;
-
-            display: grid;
-
-            grid-template-columns: 2fr 4fr 2fr;
-        }
-
-        .box-left {
-            margin: auto;
-            text-align: center;
-        }
-
-        .box-center {
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg");
             background-position: center;
             background-size: cover;
 
-            width: 500px;
-            height: 200px;
+            color: white;
 
             display: flex;
-            margin: auto;
+            flex-direction: column;
             justify-content: center;
-
             align-items: center;
-
-
         }
 
-        .box-right {
-            margin: auto;
-            text-align: center;
-        }
 
         .mybtn > button {
             margin-right: 10px;
@@ -69,9 +46,9 @@
             min-width: 1200px;
             background-position: center;
             background-size: cover;
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/image/notepad.jpg");
+            background-image: url("/static/image/notepad.jpg");
 
-            color: white;
+            color: black;
 
             display: flex;
             flex-direction: column;
@@ -107,7 +84,6 @@
         }
 
         .mycard {
-
             margin: 10px;
             position: relative;
             text-align: center;
@@ -123,102 +99,26 @@
 </head>
 <body>
 <div class="mytitle">
-    <div class="box-left"><h2>유상우 송지훈 <br>육준호 길재형</div>
-    <div class="box-center"><h1>[ Four Glass ]</h1></div>
-    <div class="box-right"></div>
+    <h1>Four Glass</h1>
 </div>
-<!------------------------수정사항--------------->
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
-    $(document).ready(function () {
-        set_temp()
-        show_comment()
-    });
 
-    function set_temp() {
-        $.ajax({
-            type: "GET",
-            url: "/maindet",
-            data: {},
-            success: function (response) {
-                $('#temp').text(response['temp'])
-            }
-        })
-
-
-    }
-
-    function save_maincomment() {
-        let name = $('#name').val()
-        let comment = $('#comment').val()
-
-        if ($("#name").val().length == 0) {
-            alert("이름을 입력해주세요!");
-            $("#name").focus();
-            return false;
-        }
-
-        if ($("#comment").val().length == 0) {
-            alert("응원해주세요~");
-            $("#comment").focus();
-            return false;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: '/maindet',
-            data: {name_give: name, comment_give: comment},
-            success: function (response) {
-                alert(response['msg'])
-                window.location.reload()
-            }
-        })
-    }
-
-    function show_comment() {
-        $.ajax({
-            type: "GET",
-            url: "/maindet",
-            data: {},
-            success: function (response) {
-                let rows = response['maindet']
-                for (let i = 0; i < rows.length; i++) {
-                    let name = rows[i]['name']
-                    let comment = rows[i]['comment']
-
-
-                    let temp_html = `<div class="card" >
-                                            <div class="card-body" style="box-shadow: black">
-                                                <blockquote class="blockquote mb-0">
-                                                    <p><span style="color: black">닉네임:</span> ${name}</p>
-                                                    <footer class="blockquote-footer">${comment}</footer>
-                                                </blockquote>
-                                            </div>
-                                        </div>`
-                    $('#comment-list').append(temp_html)
-                }
-            }
-        });
-    }
-
-    // -----------------------------------
-
-</script>
+<script src="../static/js/comment.js"></script>
 
 <div class="mymain">
     <div>
         <div>
             <h1>여기에 팀 소개를 합니다</h1>
-
+            <h2>팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형</h2>
+            <h4>안녕</h4>
         </div>
     </div>
     <div class="commentForm">
         <h1>여기를 수정해 주세요</h1>
-        <form id="Form">
-            <input type="text" id="code" placeholder="닉네임"/>
-            <input type="text" id="ggyul" placeholder="댓글"/>
+        <div id="Form">
+            <input type="text" id="name" placeholder="닉네임"/>
+            <input type="text" id="comment" placeholder="댓글"/>
             <button onclick="save_maincomment()">댓글 달기</button>
-        </form>
+        </div>
         <ul id="ggyuls">
         </ul>
     </div>
