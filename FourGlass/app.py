@@ -49,7 +49,7 @@ def intro_maindet():
     maindet_list = list(db.imaindet.find({}, {'_id': False}))
     count = len(maindet_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    doc = {'num': count, 'name': name_receive, 'team1comment': comment_receive}
     db.maindet.insert_one(doc)
 
     return jsonify({'msg': '댓글감사합니다!!'})
@@ -81,7 +81,7 @@ def intro_post():
     intro_list = list(db.intro.find({}, {'_id': False}))
     count = len(intro_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    doc = {'num': count, 'name': name_receive, 'team1comment': comment_receive}
     db.intro.insert_one(doc)
 
     return jsonify({'msg': '응원 감사합니다!!'})
@@ -106,7 +106,7 @@ def homework_post():
     doc = {
         'idx': idx_receive,
         'name': name_receive,
-        'comment': comment_receive,
+        'team1comment': comment_receive,
         'pass': pass_receive
     }
     db.comment.insert_one(doc)
@@ -167,7 +167,7 @@ def teamTwo_post():
     comment_receive = request.form['comment_give']
     doc = {
         'name': name_receive,
-        'comment': comment_receive
+        'team1comment': comment_receive
     }
     db.teamTwo.insert_one(doc)
 
