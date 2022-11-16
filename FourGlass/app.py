@@ -78,12 +78,11 @@ def team4_release_review():
 # -----------------------송지훈-----------------------------*
 
 # ------------------메인페이지 댓글----------------
-@app.route('/')
+@app.route('/main')
 def home():
     return render_template('mainpage.html')
 
-
-@app.route("/", methods=["POST"])
+@app.route("/main", methods=["POST"])
 def main_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
@@ -121,20 +120,20 @@ def team3():
 
 
 # <<<<<<< HEAD
-@app.route("/intro", methods=["POST"])
+@app.route("/team3", methods=["POST"])
 def intro_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
     intro_list = list(db.intro.find({}, {'_id': False}))
     count = len(intro_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'team1comment': comment_receive}
+    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
     db.intro.insert_one(doc)
 
     return jsonify({'msg': '응원 감사합니다!!'})
 
 
-@app.route("/intro", methods=["GET"])
+@app.route("/team3", methods=["GET"])
 def intro_get():
     intro_list = list(db.intro.find({}, {'_id': False}))
     return jsonify({'intro': intro_list})
