@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 import certifi
-import logging
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -46,8 +45,35 @@ def homework_get_jh():
     reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
     print(reviews)
     return jsonify({'reviews': reviews})
+# ------------------team3yook---------------------------------
+@app.route('/team3')
+def team3():
+    return render_template('team3.html')
+
+# <<<<<<< HEAD
+@app.route("/intro", methods=["POST"])
+def intro_post():
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
+    intro_list = list(db.intro.find({}, {'_id': False}))
+    count = len(intro_list) + 1
+
+    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
+    db.intro.insert_one(doc)
+
+    return jsonify({'msg':'응원 감사합니다!!'})
 
 
+
+@app.route("/intro", methods=["GET"])
+def intro_get():
+    intro_list = list(db.intro.find({}, {'_id': False}))
+    return jsonify({'intro':intro_list})
+
+# ------------------team3yook---------------------------------
+
+# =======
+# >>>>>>> 9946db5f51c57e6651ddee92391d70e3d46cac31
 @app.route("/homework", methods=["POST"])
 def homework_post():
     idx_receive = request.form["idx_give"]
@@ -105,6 +131,6 @@ def fourglass_addReply():
     db.reply.insert_one(doc)
     return render_template('team1.html')
 
-
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+

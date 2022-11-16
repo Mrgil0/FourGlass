@@ -1,7 +1,22 @@
 $(document).ready(function(){
     show_comment()
+    num = create_index()
 });
 let num;
+
+function create_index(){
+    $.ajax({
+        type : "GET",
+        url : "/fourglass/createIndex",
+        data : {},
+        success : function(response){
+            let row = response['result']
+            num = row['idx'] + 1
+            alert(num)
+        }
+    });
+    return num
+}
 
 function addComment(){
     if($('.name').val()=="" || $('.comment').val()=="" || $('#pass').val()==""){
@@ -11,7 +26,8 @@ function addComment(){
     let name = $('#name').val();
     let comment = $('#comment').val();
     let pass = $('.pass').val();
-    let idx = create_index()
+    let idx = num
+    console.log(idx)
     $.ajax({
         type : 'POST',
         url : '/homework',
@@ -25,11 +41,7 @@ function addComment(){
         }
     });
 }
-function create_index(){
-    $.ajax({
 
-    });
-}
 function show_comment(){
     $('#sampleDiv').empty()
     $.ajax({
