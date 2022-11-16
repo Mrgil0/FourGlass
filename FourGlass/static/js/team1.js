@@ -2,9 +2,6 @@ $(document).ready(function(){
     show_comment()
 });
 let num;
-if(num==null){
-    num = 0
-}
 
 function addComment(){
     if($('.name').val()=="" || $('.comment').val()=="" || $('#pass').val()==""){
@@ -29,8 +26,9 @@ function addComment(){
     });
 }
 function create_index(){
-    num++
-    return num
+    $.ajax({
+
+    });
 }
 function show_comment(){
     $('#sampleDiv').empty()
@@ -45,18 +43,48 @@ function show_comment(){
                 let name = rows[i]['name']
                 let comment = rows[i]['comment']
                 let temp_div = `<div style="overflow: hidden" id="replyCmt">
-                                    <p style="display:none">${idx}</p>
                                     <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${name}</p>
                                     <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${comment}</p>
+                                    <button style="float:left; class="`+ idx +`"margin-top:7px" id="openReply" type="button" class="\` + idx + \`">↓</button>
                                     <button class="${rows[i]['idx']}" id="replyBtn" type="button" style="float:left; margin:0 3px; padding:10px; border: 1px;">댓글</button>
                                     <button class="${rows[i]['idx']}" id="delBtn" type="button" style="float:right; margin:0 3px; padding:10px; border: 1px;">삭제</button>
-                                </div>`
+                                </div>
+                                <div id="replyModal" class="modal`+ idx +`" style="display:none">댓글이 보여지는 곳</div>`
                 $('#sampleDiv').append(temp_div)
             }
         }
     })
-
 }
+function show_reply(){
+    $.ajax({
+       type : 'get',
+       url :  '/fourglass/findReply',
+       data : {},
+       success : function (response){
+           let rows = response['reply']
+           for(let i=0; i<rows.length; i++){
+               let idx = rows[i]['idx']
+               let name = rows[i]['name']
+               let reply = rows[i]['reply']
+               $('replyCmt').find('')
+           }
+       }
+    });
+}
+
+
+/*$(document).on('click', '#openReply', function() {
+    let tk = true
+    let idx = $(this).attr("class")
+    if(tk){
+        $('.modal'+ idx).attr('style', 'display:inline-block')
+        tk = false
+    } else{
+        $(".modal"+ idx).attr('style', 'display:none')
+        tk = true
+    }
+});*/
+
 $(document).on('click', '#delBtn', function(){
     let num = prompt('비밀번호를 입력하세요.')
     let id = $(this).attr('class')
@@ -90,7 +118,8 @@ function showReply(){
     $('.replyCmt').append(temp_html)
 }
 
-function removeCmt(removeName){
+$(document).one('click', '#delBtn', function (){
+    let removeName = $(this).attr("class")
     $.ajax({
         type : 'POST',
         url : '/fourglass/del',
@@ -100,4 +129,4 @@ function removeCmt(removeName){
             location.reload()
         }
     })
-}
+});
