@@ -10,6 +10,7 @@ client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?re
                      tlsCAFile=ca)
 db = client.sparta
 
+
 @app.route('/')
 def home():
     return render_template('team1.html')
@@ -95,10 +96,23 @@ def fourglass_addReply():
     db.reply.insert_one(doc)
     return render_template('team1.html')
 
-@app.route("/fourglass/createIndex", methods=["GET"])
-def fourglass_createIndex():
-    find_list = list(db.comment.find({'idx': {"$gt": 0}}))
-    return jsonify({'result': find_list})
+@app.route("/4glass", methods=["POST"])
+def teamTwo_post():
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
+    doc = {
+        'name': name_receive,
+        'comment': comment_receive
+    }
+    db.teamTwo.insert_one(doc)
+
+    return jsonify({'msg': '작성 완료!'})
+
+
+@app.route("/4glass", methods=["GET"])
+def teamTwo_get():
+    comment_list = list(db.teamTwo.find({}, {'_id': False}))
+    return jsonify({'comments': comment_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
