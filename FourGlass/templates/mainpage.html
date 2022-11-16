@@ -22,18 +22,41 @@
         .mytitle {
 
             height: 250px;
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
+
+            background-color: black;
+            color: white;
+
+            display: grid;
+
+            grid-template-columns: 2fr 4fr 2fr;
+        }
+
+        .box-left {
+            margin: auto;
+            text-align: center;
+        }
+
+        .box-center {
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
             background-position: center;
             background-size: cover;
 
-            color: white;
+            width: 500px;
+            height: 200px;
 
             display: flex;
-            flex-direction: column;
+            margin: auto;
             justify-content: center;
+
             align-items: center;
+
+
         }
 
+        .box-right {
+            margin: auto;
+            text-align: center;
+        }
 
         .mybtn > button {
             margin-right: 10px;
@@ -84,6 +107,7 @@
         }
 
         .mycard {
+
             margin: 10px;
             position: relative;
             text-align: center;
@@ -99,7 +123,9 @@
 </head>
 <body>
 <div class="mytitle">
-    <h1>Four Glass</h1>
+    <div class="box-left"><h2>유상우 송지훈 <br>육준호 길재형</div>
+    <div class="box-center"><h1>[ Four Glass ]</h1></div>
+    <div class="box-right"></div>
 </div>
 <!------------------------수정사항--------------->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -183,8 +209,7 @@
     <div>
         <div>
             <h1>여기에 팀 소개를 합니다</h1>
-            <h2>팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형</h2>
-            <h3>내용을 입력해주세요</h3>
+
         </div>
     </div>
     <div class="commentForm">
