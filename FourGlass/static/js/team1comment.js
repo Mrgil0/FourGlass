@@ -28,8 +28,9 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
     }
     create_index(function(rows){ //콜백함수 create_index가 성공해야 실행됨
         console.log(rows)
-        isDefined(rows[0]['idx']) ? idx=0 : idx=1 //db에 아무것도 없을 경우 idx가 undefined가 되어 1로 지정
+        isDefined(rows[0]) ? idx=0 : idx=1 //db에 아무것도 없을 경우 idx가 undefined가 되어 1로 지정
         for(let i=0; i<rows.length; i++) {
+            if(idx=1) break;
             let temp = rows[i]['idx']
             if(temp>idx) {idx=temp}  //db의 제일 큰값이 idx가 됨
         }
