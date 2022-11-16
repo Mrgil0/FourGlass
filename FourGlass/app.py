@@ -12,54 +12,77 @@ client = MongoClient(
 db = client.sparta
 
 
+# *----------------------송지훈------------------------------
+
+
+@app.route('/team4')
+def jh():
+    return render_template('team4.html')
+
+
+@app.route("/team4/review", methods=["POST"])
+def insertReviewPost():
+    review_receive = request.form['review_give']
+    count=0
+    if (db.jh.count_documents({}) != 0):
+        count = (db.jh.find({}, {'_id': False})[0]['num']) + 1
+
+    print(type(count))
+    print(count)
+    doc = {
+        'review': review_receive,
+        'num': count,
+    }
+    # db.jh.insert_one(doc)
+    return jsonify({'msg': '저장완료'})
+
+
+@app.route("/team4/review", methods=["GET"])
+def homework_get_jh():
+    reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
+
+    return jsonify({'reviews': reviews})
+
+@app.route("/reviewUpdate", methods=["POST"])
+def reviewUpdate():
+    review_receive = request.form['review_give']
+    num_receive = request.form['num_give']
+
+    db.jh.update_one({'num':num_receive},{'$set':{'reivew':review_receive}})
+    return jsonify({'msg': '연결'})
+
+
+# -----------------------송지훈-----------------------------*
+
 # ------------------메인페이지 댓글----------------
 @app.route('/')
 def home():
     return render_template('mainpage.html')
 
-# 송지훈 개인페이지
-@app.route('/team4')
-def jh():
-    return render_template('team4.html')
-
-# 송지훈 개인페이지
-@app.route("/team4/review", methods=["POST"])
-def insertReviewPost():
-    review_receive = request.form['review_give']
-
-    doc = {
-        'review': review_receive,
-    }
-    db.jh.insert_one(doc)
-    return jsonify({'msg': '저장완료'})
-
-# 송지훈 개인페이지
-@app.route("/team4/review", methods=["GET"])
-def homework_get_jh():
-    reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
-    print(reviews)
-    return jsonify({'reviews': reviews})
-
-
-
 @app.route("/", methods=["POST"])
-def intro_maindet():
+def main_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    maindet_list = list(db.imaindet.find({}, {'_id': False}))
-    count = len(maindet_list) + 1
+    main_list = list(db.main.find({}, {'_id': False}))
+    count = len(main_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'team1comment': comment_receive}
-    db.maindet.insert_one(doc)
+    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    db.main.insert_one(doc)
 
     return jsonify({'msg': '댓글감사합니다!!'})
 
 
-@app.route("/maindet", methods=["GET"])
-def maindet_get():
-    maindet_list = list(db.maindet.find({}, {'_id': False}))
-    return jsonify({'intro': maindet_list})
+@app.route("/main", methods=["GET"])
+def main_get():
+    main_list = list(db.main.find({}, {'_id': False}))
+    return jsonify({'main': main_list})
 
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
+
+
+
+# ----------------------------------------------
 
 # ----------------------------------------------
 @app.route('/team1')
@@ -143,7 +166,7 @@ def teamTwo_post():
     comment_receive = request.form['comment_give']
     doc = {
         'name': name_receive,
-        'team1comment': comment_receive
+        'comment': comment_receive
     }
     db.teamTwo.insert_one(doc)
 
@@ -154,7 +177,6 @@ def teamTwo_post():
 def teamTwo_get():
     comment_list = list(db.teamTwo.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
