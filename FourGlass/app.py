@@ -1,4 +1,5 @@
 import certifi
+
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -10,9 +11,12 @@ client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?re
                      tlsCAFile=ca)
 db = client.sparta
 
-
 @app.route('/')
 def home():
+    return render_template('mainpage.html')
+
+@app.route('/team1')
+def team1():
     return render_template('team1.html')
 # ------------------team3yook---------------------------------
 @app.route('/team3')
@@ -96,11 +100,11 @@ def fourglass_addReply():
     db.reply.insert_one(doc)
     return render_template('team1.html')
 
-@app.route('/two')
-def home():
+@app.route('/team2')
+def team2():
     return render_template('team2.html')
 
-@app.route("/4glass", methods=["POST"])
+@app.route("/fourglass/team2/addReply", methods=["POST"])
 def teamTwo_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
@@ -113,7 +117,7 @@ def teamTwo_post():
     return jsonify({'msg': '작성 완료!'})
 
 
-@app.route("/4glass", methods=["GET"])
+@app.route("/fourglass/team2/findReply", methods=["GET"])
 def teamTwo_get():
     comment_list = list(db.teamTwo.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
