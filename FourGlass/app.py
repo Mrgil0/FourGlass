@@ -7,6 +7,7 @@ app = Flask(__name__)
 # ca = certifi.where()
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.4gwwh2d.mongodb.net/?retryWrites=true&w=majority')
+# 클라이언트 '' 안에 몽고로 연결되는 비밀번호랑 같이있는걸로 알아요 나중에 시험해보실분 몽고주소로 변경해주시면 될거같아요
 db = client.dbsparta
 
 
