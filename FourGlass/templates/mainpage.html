@@ -179,6 +179,33 @@
             }
         })
     }
+     function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/maindet",
+                data: {},
+                success: function (response) {
+                    let rows = response['maindet']
+                    for (let i = 0; i < rows.length; i++) {
+                        let name = rows[i]['name']
+                        let comment = rows[i]['comment']
+
+
+                        let temp_html = `<div class="card" >
+                                            <div class="card-body" style="box-shadow: black">
+                                                <blockquote class="blockquote mb-0">
+                                                    <p><span style="color: black">닉네임:</span> ${name}</p>
+                                                    <footer class="blockquote-footer">${comment}</footer>
+                                                </blockquote>
+                                            </div>
+                                        </div>`
+                        $('#comment-list').append(temp_html)
+
+
+                    }
+                }
+            });
+        }
 // -----------------------------------
 
 </script>
@@ -191,8 +218,8 @@
         <div>
             <h1>여기를 수정해 주세요</h1>
             <form id="Form">
-                <input type="text" id="code" placeholder="code"/>
-                <input type="text" id="ggyul" placeholder="ggyul"/>
+                <input type="text" id="code" placeholder="닉네임"/>
+                <input type="text" id="ggyul" placeholder="댓글"/>
                 <button onclick="save_maincomment()">댓글 달기</button>
             </form>
             <ul id="ggyuls">
