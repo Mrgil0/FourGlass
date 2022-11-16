@@ -15,30 +15,28 @@ db = client.dbsparta
 def home():
     return render_template('mainpage.html')
 
-
-@app.route("/maindet", methods=["POST"])
-def maindet_post():
+@app.route("/main", methods=["POST"])
+def intro_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    maindet_list = list(db.maindet.find({}, {'_id': False}))
-    count = len(maindet_list) + 1
+    main_list = list(db.main.find({}, {'_id': False}))
+    count = len(main_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
-    db.maindet.insert_one(doc)
+    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
+    db.main.insert_one(doc)
 
-    return jsonify({'msg': '댓글감사합니다!!'})
+    return jsonify({'msg':'어서오세요!'})
 
 
-@app.route("/maindet", methods=["GET"])
-def maindet_get():
-    maindet_list = list(db.maindet.find({}, {'_id': False}))
-    return jsonify({'intro': maindet_list})
+
+@app.route("/main", methods=["GET"])
+def main_get():
+    main_list = list(db.main.find({}, {'_id': False}))
+    return jsonify({'intro':main_list})
 
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
-
 
 
 # ----------------------------------------------
