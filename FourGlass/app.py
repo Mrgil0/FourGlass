@@ -98,35 +98,35 @@ def intro_get():
 # =======
 @app.route("/fourglass/team1_add_cmt", methods=["POST"])    #댓글 남기기
 def team1_add_cmt():
-    idx_receive = int(request.form["idx_give"])
+    id_receive = int(request.form["idx_give"])
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
     pass_receive = request.form["pass_give"]
     doc = {
-        'idx': idx_receive,
+        'idx': id_receive,
         'name': name_receive,
         'comment': comment_receive,
         'pass': pass_receive
     }
-    db.comment.insert_one(doc)
+    db.team1_comment.insert_one(doc)
     return jsonify({'msg': '작성 완료!'})
 
 
 @app.route("/fourglass/team1_get_cmt", methods=["GET"])     #댓글목록 가져오기
 def team1_get_cmt():
-    comment_list = list(db.comment.find({}, {'_id': False}))
+    comment_list = list(db.team1_comment.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
 
 @app.route("/fourglass/team1_find_cmt", methods=["POST"])   #댓글의 인덱스 번호 찾기
 def team1_find_cmt():
     id_receive = int(request.form['id_give'])
-    find_list = list(db.comment.find({"idx": id_receive}, {'_id': 0}))  #'_id' 제외(0)하고 찾음
+    find_list = list(db.team1_comment.find({"idx": id_receive}, {'_id': 0}))  #'_id' 제외(0)하고 찾음
     return jsonify({'result': find_list})
 
 @app.route("/fourglass/team1_del_cmt", methods=["POST"])    #팀원1의 댓글 삭제
 def team1_del_cmt():
     id_receive = int(request.form["id_give"])
-    db.comment.delete_one({'idx': id_receive})
+    db.team1_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
 @app.route("/4glass", methods=["POST"])

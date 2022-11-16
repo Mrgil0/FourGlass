@@ -7,18 +7,16 @@ function isDefined(value){
 
 function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
     if($('.name').val()=="" || $('.team1comment').val()=="" || $('#pass').val()==""){ //유효성 검사
-        alert('이름이나 내용을 입력해주세요.');
+        alert('빈칸이 없도록 입력해주세요.');
         return;
     }
-    let idx
-    function create_index(callbackfunc){ //db의 comment리스트 가져오기
+    function create_index(callbackfunc){ //db에서 comment리스트 가져오기
         $.ajax({
             type : "GET",
             url : get_url,
             data : {},
             success : function(response){
                 let rows = response['comments']
-
                 callbackfunc(rows)
             },
             error : function(response) {
@@ -27,12 +25,12 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
         });
     }
     create_index(function(rows){ //콜백함수 create_index가 성공해야 실행됨
-        console.log(rows)
-        isDefined(rows[0]) ? idx=0 : idx=1 //db에 아무것도 없을 경우 idx가 undefined가 되어 1로 지정
+        let idx
+        isDefined(rows[0]) ? idx=0 : idx=1 //db에 아무것도 없을 경우 가져온 데이터가 undefined되어 idx를 1로 지정
         for(let i=0; i<rows.length; i++) {
-            if(idx=1) break;
+            if(idx=1) break;    //db안에 데이터가 없을 경우 비교가 안되므로 break
             let temp = rows[i]['idx']
-            if(temp>idx) {idx=temp}  //db의 제일 큰값이 idx가 됨
+            if(temp>idx) {idx=temp}  //db의 index중 제일 큰값이 idx가 됨
         }
         idx++
         let name = $('#name').val();
@@ -53,8 +51,8 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
     })
 }
 
-function show_comment(show_url, add_tag){
-    $(add_tag).empty() // 댓글칸 비우기
+function show_comment(show_url, add_tag){   //방명록 보여주기
+    $(add_tag).empty() // 칸 비우기
     $.ajax({
         type : 'get',
         url : show_url,
