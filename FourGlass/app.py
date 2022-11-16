@@ -1,5 +1,4 @@
 import certifi
-import logging
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -20,6 +19,7 @@ def home():
 def home():
     return render_template('team3.html')
 
+# <<<<<<< HEAD
 @app.route("/intro", methods=["POST"])
 def intro_post():
     name_receive = request.form['name_give']
@@ -45,6 +45,8 @@ if __name__ == '__main__':
 
 # ------------------team3yook---------------------------------
 
+# =======
+# >>>>>>> 9946db5f51c57e6651ddee92391d70e3d46cac31
 @app.route("/homework", methods=["POST"])
 def homework_post():
     idx_receive = request.form["idx_give"]
@@ -100,3 +102,4 @@ def fourglass_addReply():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+
