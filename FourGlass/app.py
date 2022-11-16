@@ -96,6 +96,10 @@ def fourglass_addReply():
     db.reply.insert_one(doc)
     return render_template('team1.html')
 
+@app.route('/two')
+def home():
+    return render_template('team2.html')
+
 @app.route("/4glass", methods=["POST"])
 def teamTwo_post():
     name_receive = request.form['name_give']
