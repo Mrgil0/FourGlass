@@ -179,6 +179,33 @@
             }
         })
     }
+     function show_comment() {
+            $.ajax({
+                type: "GET",
+                url: "/maindet",
+                data: {},
+                success: function (response) {
+                    let rows = response['maindet']
+                    for (let i = 0; i < rows.length; i++) {
+                        let name = rows[i]['name']
+                        let comment = rows[i]['comment']
+
+
+                        let temp_html = `<div class="card" >
+                                            <div class="card-body" style="box-shadow: black">
+                                                <blockquote class="blockquote mb-0">
+                                                    <p><span style="color: black">닉네임:</span> ${name}</p>
+                                                    <footer class="blockquote-footer">${comment}</footer>
+                                                </blockquote>
+                                            </div>
+                                        </div>`
+                        $('#comment-list').append(temp_html)
+
+
+                    }
+                }
+            });
+        }
 // -----------------------------------
 
 </script>
@@ -191,8 +218,8 @@
         <div>
             <h1>여기를 수정해 주세요</h1>
             <form id="Form">
-                <input type="text" id="code" placeholder="code"/>
-                <input type="text" id="ggyul" placeholder="ggyul"/>
+                <input type="text" id="code" placeholder="닉네임"/>
+                <input type="text" id="ggyul" placeholder="댓글"/>
                 <button onclick="save_maincomment()">댓글 달기</button>
             </form>
             <ul id="ggyuls">
@@ -208,7 +235,7 @@
                 <div class="card-body">
                     <h5 class="card-title">유상우(팀장)</h5>
                     <p class="card-text">010-7329-5467</p>
-                    <a href="one" class="btn btn-secondary">Go!</a>
+                    <a href="team2" class="btn btn-secondary">Go!</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -216,7 +243,7 @@
                 <div class="card-body">
                     <h5 class="card-title">길재형</h5>
                     <p class="card-text">나는 거북이당</p>
-                    <a href="two" class="btn btn-primary">Go!</a>
+                    <a href="team1" class="btn btn-primary">Go!</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -224,7 +251,11 @@
                 <div class="card-body">
                     <h5 class="card-title">송지훈</h5>
                     <p class="card-text">나는 거북이당</p>
+<<<<<<< HEAD
                     <a href="/jh" class="btn btn-primary">Go!</a>
+=======
+                    <a href="team4" class="btn btn-primary">Go!</a>
+>>>>>>> main
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -232,7 +263,7 @@
                 <div class="card-body">
                     <h5 class="card-title">육준호</h5>
                     <p class="card-text">나는 거북이당</p>
-                    <a href="four" class="btn btn-primary">Go!</a>
+                    <a href="team3" class="btn btn-primary">Go!</a>
                 </div>
             </div>
         </div>

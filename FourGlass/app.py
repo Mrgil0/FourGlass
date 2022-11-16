@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import certifi
+
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -13,6 +14,7 @@ db = client.sparta
 # 팀소개 페이지
 
 
+# ------------------메인페이지 댓글----------------
 @app.route('/')
 def home():
     return render_template('mainpage.html')
@@ -45,10 +47,37 @@ def homework_get_jh():
     reviews = list(db.jh.find({}, {'_id': False}).sort('_id', -1).limit(3))
     print(reviews)
     return jsonify({'reviews': reviews})
+
+@app.route("/", methods=["POST"])
+def intro_maindet():
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
+    maindet_list = list(db.imaindet.find({}, {'_id': False}))
+    count = len(maindet_list) + 1
+
+    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    db.maindet.insert_one(doc)
+
+    return jsonify({'msg': '댓글감사합니다!!'})
+
+
+@app.route("/maindet", methods=["GET"])
+def maindet_get():
+    maindet_list = list(db.maindet.find({}, {'_id': False}))
+    return jsonify({'intro': maindet_list})
+
+
+# ----------------------------------------------
+@app.route('/team1')
+def team1():
+    return render_template('team1.html')
+
+
 # ------------------team3yook---------------------------------
 @app.route('/team3')
 def team3():
     return render_template('team3.html')
+
 
 # <<<<<<< HEAD
 @app.route("/intro", methods=["POST"])
@@ -58,17 +87,17 @@ def intro_post():
     intro_list = list(db.intro.find({}, {'_id': False}))
     count = len(intro_list) + 1
 
-    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
+    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
     db.intro.insert_one(doc)
 
-    return jsonify({'msg':'응원 감사합니다!!'})
-
+    return jsonify({'msg': '응원 감사합니다!!'})
 
 
 @app.route("/intro", methods=["GET"])
 def intro_get():
     intro_list = list(db.intro.find({}, {'_id': False}))
-    return jsonify({'intro':intro_list})
+    return jsonify({'intro': intro_list})
+
 
 # ------------------team3yook---------------------------------
 
@@ -131,6 +160,30 @@ def fourglass_addReply():
     db.reply.insert_one(doc)
     return render_template('team1.html')
 
+
+@app.route('/team2')
+def team2():
+    return render_template('team2.html')
+
+
+@app.route("/fourglass/team2/addReply", methods=["POST"])
+def teamTwo_post():
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
+    doc = {
+        'name': name_receive,
+        'comment': comment_receive
+    }
+    db.teamTwo.insert_one(doc)
+
+    return jsonify({'msg': '작성 완료!'})
+
+
+@app.route("/fourglass/team2/findReply", methods=["GET"])
+def teamTwo_get():
+    comment_list = list(db.teamTwo.find({}, {'_id': False}))
+    return jsonify({'comments': comment_list})
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
