@@ -208,7 +208,9 @@ def team_update_cmt():
 
 @app.route("/fourglass/team2_add_cmt", methods=["POST"])
 def team2_add_cmt_post():
+    name_receive = request.form["name_give"]
     pass_receive = request.form["pass_give"]
+    comment_receive = request.form["comment_give"]
     comment_list = list(db.team2_comment.find({}, {'_id': False}))
     count = len(comment_list) + 1
     doc = {
@@ -239,9 +241,6 @@ def team2_del_cmt():
     id_receive = int(request.form["id_give"])
     db.team2_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
-
-
-
 
 
 if __name__ == '__main__':
