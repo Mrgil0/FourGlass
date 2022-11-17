@@ -200,7 +200,7 @@ def team1_find_cmt():
     return jsonify({'result': find_list})
 
 
-@app.route("/fourglass/team1_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
+@app.route("/fourglass/team1_del_cmt", methods=["POST"])  # 댓글 삭제
 def team1_del_cmt():
     id_receive = int(request.form["id_give"])
     db.team1_comment.delete_one({'idx': id_receive})
@@ -211,7 +211,7 @@ def team2():
     return render_template('team2.html')
 
 
-@app.route("/fourglass/team1_update_cmt", methods=["POST"])
+@app.route("/fourglass/team1_update_cmt", methods=["POST"])  #댓글 수정
 def team1_update_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
