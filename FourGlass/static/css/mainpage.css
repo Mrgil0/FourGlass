@@ -87,22 +87,32 @@ h1.sixth:hover:after {
 
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .mycard {
-    display: flex;
     padding: 10px;
     text-align: center;
-    display: flex;
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: auto;
+}
+
+.introduce {
+    margin-right: 10px;
+    flex: auto;
+    min-width: 400px;
+    border: 1px solid black;
+    padding: 10px;
 }
 
 .card {
+
     margin: 10px;
     padding: 10px;
-    width: 300px;
+    width: 200px;
 
 
 }
