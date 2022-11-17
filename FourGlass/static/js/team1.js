@@ -36,8 +36,8 @@ $(document).on('click', '#delBtn', function(){
 
 $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
     let num = prompt('비밀번호를 입력하세요.')
-    let id = $(this).attr('class')
-    function find_cmt(callbackfunc) {   //수정한 댓글의 비밀번호 확인
+    let id = $(this).attr('class')    //댓글의 id번호 가져오기
+    function find_cmt(callbackfunc) {       //수정한 댓글의 비밀번호 확인
         $.ajax({
             type : 'POST',
             url : '/fourglass/team1_find_cmt',
@@ -52,7 +52,7 @@ $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
             }
         })
     }
-    find_cmt(function(idx){
+    find_cmt(function(idx){     //댓글의 내용을 가져온 후 수정할수 있게 변경
         alert("비밀번호가 일치합니다. 댓글을 수정 후 확인 버튼을 클릭하세요")
         $('#comment'+idx).attr('readonly', false)
         $('#comment'+idx).attr('onfocus', this.value=$('#comment'+idx).val())
