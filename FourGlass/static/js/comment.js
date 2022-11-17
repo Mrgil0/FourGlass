@@ -1,4 +1,4 @@
-src="https://code.jquery.com/jquery-3.4.1.js"
+src = "https://code.jquery.com/jquery-3.4.1.js"
 $(document).ready(function () {
     set_temp()
     show_comment()
@@ -62,6 +62,7 @@ function show_comment() {
                                                     <p><span style="color: #7140dd">닉네임:</span> ${name}</p>
                                                     <footer class="blockquote-footer">${comment}
                                                     <hr></footer>
+                                                    <button id="delbtn" className="card-link">삭제</a>
                                                 </blockquote>
                                             </div>
                                         </div>`

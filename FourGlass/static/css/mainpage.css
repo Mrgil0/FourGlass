@@ -111,7 +111,7 @@ h1.sixth:hover:after {
 .commentForm {
     border: 1px solid black;
     margin: 10px;
-    padding: 5px;
+    padding: 20px;
 }
 
 
@@ -120,11 +120,13 @@ h1.sixth:hover:after {
     margin-top: 20px;
     box-shadow: 0px 0px 3px 0px black;
     padding: 20px;
-    width: 55%;
-    height: 280px;
 
     overflow: auto;
     word-break: break-all;
+}
+
+.commentteb > .card {
+    width: 95%;
 }
 
 /*.myphoto {*/
