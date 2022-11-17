@@ -38,7 +38,7 @@ function show_comment(show_url, add_tag) {
                                             <h5 class="card-title">${name}</h5>
                                             <p class="card-text"> -- ${comment}</p>
                                             <button class="${idx}" id="delbtn" className="card-link" style="margin-right: 5px">삭제</a>
-                                            <button className="card-link">수정</button>
+                                            <button class="${idx}" id="corbtn" className="card-link">수정</button>
                                             </div></div>`
                 $(add_tag).append(temp_html)
             }
