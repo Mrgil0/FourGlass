@@ -198,12 +198,12 @@ def team2():
     return render_template('team2.html')
 
 
-@app.route("/fourglass/team_update_cmt", methods=["POST"])
-def team_update_cmt():
+@app.route("/fourglass/team1_update_cmt", methods=["POST"])
+def team1_update_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
-    db.team1_comment.update({'id': id_receive}, {'$set': {'name': name_receive, 'comment': comment_receive}})
+    db.team1_comment.update_one({'idx': id_receive}, {'$set': {'name': name_receive, 'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
 
 @app.route("/fourglass/team2_add_cmt", methods=["POST"])
