@@ -20,7 +20,7 @@ $(document).ready(function () {
 function set_temp() {
     $.ajax({
         type: "GET",
-        url: "/team3",
+        url: "/team3comment",
         data: {},
         success: function (response) {
             $('#temp').text(response['temp'])
@@ -48,7 +48,7 @@ function save_comment() {
 
     $.ajax({
         type: 'POST',
-        url: '/team3',
+        url: '/team3comment',
         data: {name_give: name, comment_give: comment},
         success: function (response) {
             alert(response['msg'])
@@ -60,15 +60,13 @@ function save_comment() {
 function show_comment() {
     $.ajax({
         type: "GET",
-        url: "/team3",
+        url: "/team3comment",
         data: {},
         success: function (response) {
-            let rows = response['team3']
+            let rows = response['team3comment']
             for (let i = 0; i < rows.length; i++) {
                 let name = rows[i]['name']
                 let comment = rows[i]['comment']
-
-
                 let temp_html = `<div class="card" >
                                             <div class="card-body" style="box-shadow: black">
                                                 <blockquote class="blockquote mb-0">
