@@ -7,11 +7,11 @@ app = Flask(__name__)
 
 ca = certifi.where()
 
-# client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-# db = client.sparta // 테스트
+client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+db = client.sparta
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
-db = client.dbsparta
+# client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
+# db = client.dbsparta
 
 # *----------------------송지훈------------------------------
 
@@ -39,7 +39,7 @@ def team4_insert_review():
 
 @app.route("/fourglass/team4_read_review", methods=["GET"])
 def team4_read_review():
-    reviews = list(db.team4.find({}, {'_id': False}).sort('_id', -1).limit(3))
+    reviews = list(db.team4.find({}, {'_id': False}).sort('_id', -1).limit(5))
     return jsonify({'reviews': reviews})
 
 
