@@ -174,7 +174,7 @@ def team1_add_cmt():
         'pass': pass_receive
     }
     db.team1_comment.insert_one(doc)
-    return jsonify({'msg': '작성 완료!'})
+    return jsonify({'msg': '방명록 작성 완료!'})
 
 
 @app.route("/fourglass/team1_get_cmt", methods=["GET"])  # 댓글목록 가져오기
@@ -204,6 +204,29 @@ def team1_update_cmt():
     comment_receive = request.form["comment_give"]
     db.team1_comment.update_one({'idx': id_receive}, {'$set': {'name': name_receive, 'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
+
+@app.route("/fourglass/team1_add_reply", methods=["POST"])  #답글 추가
+def team1_add_reply():
+    cmtid_receive = request.form["id_give"]
+    name_receive = request.form["name_give"]
+    text_receive = request.form["text_give"]
+    comment_list = list(db.team1_reply.find({}, {'_id': False}))
+    count = len(comment_list) + 1
+    doc = {
+        'idx': count,
+        'comment_id': cmtid_receive,
+        'replyName': name_receive,
+        'replyText': text_receive
+    }
+    db.team1_reply.insert_one(doc)
+    return jsonify({'msg': True})
+
+@app.route("/fourglass/team1_get_reply", methods=["POST"])    #해당 댓글의 답글 불러오기
+def team1_get_reply():
+    cmtid_receive = request.form["id_give"]
+    find_list = list(db.team1_reply.find(
+        {"comment_id": cmtid_receive}, {'_id': 0}))
+    return jsonify({'list': find_list})
 
 # team1 end-----------------------------------------------------------------------
 
