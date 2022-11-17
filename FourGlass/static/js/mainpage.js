@@ -88,7 +88,6 @@ $(document).on("click", "#delbtn", function () {
   });
 });
 
-
 /**
  * 비밀번호를 체크하여 맞을경우 수정합니다.
  */
@@ -98,8 +97,6 @@ function modiRivew() {
   const name = corbtnParent.querySelector("p").textContent.split(":")[1].trim();
   const footer = corbtnParent.querySelector("footer");
   const content = footer.textContent.trim();
-  console.log(footer);
-  console.log(content);
 
   $.ajax({
     type: "POST",
@@ -110,15 +107,16 @@ function modiRivew() {
         alert("비밀번호가 일치하지 않습니다.");
       } else {
         const getModified = prompt("수정할 내용을 입력하세요", content);
-        $.ajax({
-          type: "POST",
-          url: "/fourglass/main_modified_cmt",
-          data: { before_give: content, modified_give: getModified },
-          success: function (response) {
-            console.log("modi linked");
-            window.location.reload();
-          },
-        });
+        if (getModified !== null) {
+          $.ajax({
+            type: "POST",
+            url: "/fourglass/main_modified_cmt",
+            data: { before_give: content, modified_give: getModified },
+            success: function (response) {
+              window.location.reload();
+            },
+          });
+        }
       }
     },
   });
