@@ -96,6 +96,19 @@ def main_comment_post():
 
     return jsonify({'msg':'어서오세요!'})
 
+@app.route("/fourglass/main_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
+def main_find_cmt():
+    id_receive = int(request.form['id_give'])
+    find_list = list(db.main_comment.find({"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
+    return jsonify({'result': find_list})
+
+
+@app.route("/fourglass/main_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
+def main_del_cmt():
+    id_receive = int(request.form["id_give"])
+    db.main_comment.delete_one({'idx': id_receive})
+    return jsonify({'msg': '삭제 완료!'})
+
 
 
 
