@@ -33,9 +33,11 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                 let name = rows[i]['name']
                 let comment = rows[i]['comment']
                 let temp_div = `<div style="overflow: hidden" id="replyCmt">
-                                    <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${name}</p>
-                                    <p style="float:left; margin:0 3px; padding:10px; border: 1px;">${comment}</p>
-                                    <button class="${idx}" id="delBtn" type="button" style="float:right; margin:0 3px; padding:10px; border: 1px;">삭제</button>
+                                    <input class="comment_name" id="name${idx}" type="text" readonly value="${name}" onfocus="this.blur();">
+                                    <input class="comment_text" id="comment${idx}" type="text" readonly value="${comment}" onfocus="this.blur();">
+                                    <button class="${idx}" id="delBtn" type="button">삭제</button>
+                                    <button class="${idx}" id="modifyBtn" type="button">수정</button>
+                                    <button class="${idx}" id="modifyCheckBtn" type="button">확인</button>
                                 </div>`
                 $(add_tag).append(temp_div)
             }
