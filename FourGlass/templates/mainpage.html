@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,166 +15,82 @@
 
     <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Gowun Dodum', sans-serif;
-        }
-
-        .mytitle {
-            background-color: green;
-            height: 250px;
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg");
-            background-position: center;
-            background-size: cover;
-
-            color: white;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-
-        .mybtn > button {
-            margin-right: 10px;
-        }
-
-        .mymain {
-            margin: 20px;
-            border: 3px solid black;
-            max-height: 650px;
-            min-width: 1200px;
-            background-position: center;
-            background-size: cover;
-            background-image: url("/static/image/notepad.jpg");
-
-            color: black;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mymain > div {
-
-            border: 1px solid black;
-            margin: 10px;
-            padding: 5px;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-        .commentForm {
-            height: 500px;
-        }
-
-        .myphoto {
-            margin: 20px;
-            border: 3px solid black;
-            background-color: green;
-            min-width: 1200px;
-            background-position: center;
-            background-size: cover;
-            background-image: url("/static/image/night.jpg");
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .mycard {
-            margin: 10px;
-            position: relative;
-            text-align: center;
-        }
-
-        .card {
-            margin: 5px;
-        }
-        .commentteb {
-
-            margin-top: 20px;
-            box-shadow: 0px 0px 3px 0px black;
-            padding: 20px;
-            width: 55%;
-            height: 280px;
-
-            overflow: auto;
-            word-break: break-all;
-
-
-        }
-
-    </style>
+    <link rel="stylesheet" href="../static/css/mainpage.css">
+    <script src="../static/js/comment.js"></script>
 
 </head>
 <body>
 <div class="mytitle">
-    <h1>Four Glass</h1>
+    <div class="left-box">
+        팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형
+    </div>
+    <div class="center-box"><h1 class="sixth">Four Glass</h1></div>
+    <div class="right-box"></div>
 </div>
 
-<script src="../static/js/comment.js"></script>
 
 <div class="mymain">
-    <div>
-        <div>
-            <h1>여기에 팀 소개를 합니다</h1>
-            <h2>팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형</h2>
-            <h4>안녕</h4>
-        </div>
-    </div>
-    <div class="commentForm">
-        <h1>여기를 수정해 주세요</h1>
-        <div id="Form">
-            <input type="text" id="name" placeholder="닉네임"/>
-            <input type="text" id="comment" placeholder="댓글"/>
-            <button onclick="save_comment()">댓글 달기</button>
-            <div class="commentteb" id="comment-list">
-        </div>
-        <ul id="ggyuls">
-        </ul>
-    </div>
-</div>
-<div class="myphoto">
     <div class="mycard">
         <div class="row row-cols-4">
-            <div class="card" style="width: 18rem;">
-                <img src="../static/image/rabbit.png" class="card-img-top" alt="유상우" title="유상우">
+            <div class="card">
+                <img src="../static/image/ryu.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">유상우(팀장)</h5>
                     <p class="card-text">010-7329-5467</p>
-                    <a href="team2" class="btn btn-secondary">Go!</a>
+                    <a href="team2" class="btn btn-primary">Go!</a>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="../static/image/rabbit.png" class="card-img-top" alt="유상우" title="유상우">
+            <div class="card">
+                <img src="../static/image/jalsenggim.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">길재형</h5>
                     <p class="card-text">나는 거북이당</p>
                     <a href="team1" class="btn btn-primary">Go!</a>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="../static/image/rabbit.png" class="card-img-top" alt="유상우" title="유상우">
+            <div class="card">
+                <img src="../static/image/jalsenggim.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">송지훈</h5>
                     <p class="card-text">나는 거북이당</p>
                     <a href="/team4" class="btn btn-primary">Go!</a>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="../static/image/rabbit.png" class="card-img-top" alt="유상우" title="유상우">
+            <div class="card">
+                <img src="../static/image/jalsenggim.jpg" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">육준호</h5>
                     <p class="card-text">나는 거북이당</p>
                     <a href="team3" class="btn btn-primary">Go!</a>
                 </div>
             </div>
+            <div class="introduce">
+                <h1>Four Glass(포글라스)</h1>
+                <h3>저희는 조원 모두가 안경을 착용하고 있어<h3>
+                    팀명을 Four Glass(포글라스)라고 만들었습니다. <br>
+                    유상우 : CSS 디자인<br>
+                    길재형 : 댓글 삭제<br>
+                    송지훈 : 댓글 수정<br>
+                    육준호 : 댓글 등록
+            </div>
+        </div>
+
+    </div>
+    <div class="commentForm">
+        <h1>메세지를 남겨주세요</h1>
+        <div id="Form">
+            <input type="text" id="name" placeholder="닉네임" style="margin: 5px">
+            <input type="text" id="comment" placeholder="댓글">
+            <div class="form-floating">
+        <input class="form-control" type="password" placeholder="비밀번호" id="pass"
+               style="height: 80px"></input>
+        <label for="floatingTextarea2"><h5>비밀번호</h5></label>
+    </div>
+            <button onclick="save_comment()">댓글 달기</button>
+            <div class="commentteb" id="comment-list">
+            </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>
