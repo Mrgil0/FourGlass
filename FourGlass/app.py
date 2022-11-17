@@ -7,8 +7,7 @@ app = Flask(__name__)
 
 ca = certifi.where()
 
-client = MongoClient(
-    "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client.sparta
 
 
@@ -55,27 +54,29 @@ def reviewUpdate():
 # -----------------------송지훈-----------------------------*
 
 # ------------------메인페이지 댓글----------------
-@app.route('/main')
+@app.route('/')
 def home():
     return render_template('mainpage.html')
 
-@app.route("/main", methods=["POST"])
-def main_post():
+@app.route("/mainpage", methods=["POST"])
+def main_comment_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    main_list = list(db.main.find({}, {'_id': False}))
+    main_list = list(db.main_comment.find({}, {'_id': False}))
     count = len(main_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
-    db.main.insert_one(doc)
+    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
+    db.main_comment.insert_one(doc)
 
-    return jsonify({'msg': '댓글감사합니다!!'})
+    return jsonify({'msg':'어서오세요!'})
 
 
-@app.route("/main", methods=["GET"])
-def main_get():
-    main_list = list(db.main.find({}, {'_id': False}))
-    return jsonify({'main': main_list})
+
+
+@app.route("/mainpage", methods=["GET"])
+def mainpage_get():
+    main_list = list(db.main_comment.find({}, {'_id': False}))
+    return jsonify({'mainpage':main_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
@@ -83,6 +84,7 @@ if __name__ == '__main__':
 
 
 # ----------------------------------------------
+# >>>>>>> parent of fc79571 (Merge branch 'main' of https://github.com/Mrgil0/FourGlass)
 
 # ----------------------------------------------
 @app.route('/team1')
@@ -91,29 +93,29 @@ def team1():
 
 
 # ------------------team3yook---------------------------------
-@app.route('/team3')
+@app.route('/')
 def team3():
     return render_template('team3.html')
 
 
-# <<<<<<< HEAD
 @app.route("/team3", methods=["POST"])
-def intro_post():
+def team3_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-    intro_list = list(db.intro.find({}, {'_id': False}))
-    count = len(intro_list) + 1
+
+    team3_list = list(db.team3.find({}, {'_id': False}))
+    count = len(team3_list) + 1
 
     doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
-    db.intro.insert_one(doc)
+    db.team3_comment.insert_one(doc)
 
     return jsonify({'msg': '응원 감사합니다!!'})
 
 
 @app.route("/team3", methods=["GET"])
-def intro_get():
-    intro_list = list(db.intro.find({}, {'_id': False}))
-    return jsonify({'intro': intro_list})
+def team3_get():
+    comment_list = list(db.team3_comment.find({}, {'_id': False}))
+    return jsonify({'team3': comment_list})
 
 
 # ------------------team3yook---------------------------------
