@@ -21,9 +21,23 @@
         }
 
         .mytitle {
-            background-color: green;
-            height: 250px;
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg");
+            height: 150px;
+            background-color: black;
+
+            color: white;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .left-box {
+            padding-left: 20px;
+            padding-top: 20px;
+
+        }
+
+        .center-box {
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
             background-position: center;
             background-size: cover;
 
@@ -33,6 +47,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
+        }
+
+        .right-box {
+
         }
 
 
@@ -114,7 +133,11 @@
 </head>
 <body>
 <div class="mytitle">
-    <h1>Four Glass</h1>
+    <div class="left-box">
+        팀장: 유상우<br>팀원: 송지훈, 육준호, 길재형
+    </div>
+    <div class="center-box"><h1>Four Glass</h1></div>
+    <div class="right-box"></div>
 </div>
 
 <script src="../static/js/comment.js"></script>
@@ -134,7 +157,7 @@
             <input type="text" id="comment" placeholder="댓글"/>
             <button onclick="save_comment()">댓글 달기</button>
             <div class="commentteb" id="comment-list">
-                </div>
+            </div>
         </div>
         <ul id="ggyuls">
         </ul>
