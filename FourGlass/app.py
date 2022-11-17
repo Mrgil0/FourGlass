@@ -272,6 +272,14 @@ def team2_del_cmt():
     db.team2_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
+@app.route("/fourglass/team2_cor_cmt", methods=["POST"])  # 팀원1의 댓글 수정
+def team2_cor_cmt():
+    id_receive = int(request.form["id_give"])
+    comment_receive = request.form["comment_give"]
+    db.team2_comment.update_one({'idx': id_receive}, {'$set': {'comment': comment_receive}})
+    return jsonify({'msg': '수정 완료!'})
+
+
 # team2 end-----------------------------------------------------------------------
 
 if __name__ == '__main__':
