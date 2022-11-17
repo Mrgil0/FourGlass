@@ -104,11 +104,7 @@ def mainpage_get():
 
 # ----------------------------------------------
 # >>>>>>> parent of fc79571 (Merge branch 'main' of https://github.com/Mrgil0/FourGlass)
-
 # ----------------------------------------------
-@app.route('/team1')
-def team1():
-    return render_template('team1.html')
 
 
 # ------------------team3yook---------------------------------
@@ -177,30 +173,49 @@ def team1_del_cmt():
     db.team1_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
-
-@app.route("/4glass", methods=["POST"])
 @app.route('/team2')
 def team2():
     return render_template('team2.html')
 
 
-@app.route("/fourglass/team2/addReply", methods=["POST"])
-def teamTwo_post():
-    name_receive = request.form['name_give']
-    comment_receive = request.form['comment_give']
+@app.route("/fourglass/team2_add_cmt", methods=["POST"])
+def team2_add_cmt_post():
+    name_receive = request.form["name_give"]
+    comment_receive = request.form["comment_give"]
+    pass_receive = request.form["pass_give"]
+    comment_list = list(db.team2_comment.find({}, {'_id': False}))
+    count = len(comment_list) + 1
     doc = {
+        'idx': count,
         'name': name_receive,
-        'comment': comment_receive
+        'comment': comment_receive,
+        'pass': pass_receive
     }
-    db.teamTwo.insert_one(doc)
-
+    db.team2_comment.insert_one(doc)
     return jsonify({'msg': '작성 완료!'})
 
 
-@app.route("/fourglass/team2/findReply", methods=["GET"])
-def teamTwo_get():
-    comment_list = list(db.teamTwo.find({}, {'_id': False}))
+@app.route("/fourglass/team2_get_cmt", methods=["GET"])
+def team2_get_cmt_get():
+    comment_list = list(db.team2_comment.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
+
+
+@app.route("/fourglass/team2_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
+def team2_find_cmt():
+    id_receive = int(request.form['id_give'])
+    find_list = list(db.team2_comment.find({"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
+    return jsonify({'result': find_list})
+
+
+@app.route("/fourglass/team2_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
+def team2_del_cmt():
+    id_receive = int(request.form["id_give"])
+    db.team2_comment.delete_one({'idx': id_receive})
+    return jsonify({'msg': '삭제 완료!'})
+
+
+
 
 
 if __name__ == '__main__':

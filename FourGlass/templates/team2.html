@@ -59,53 +59,9 @@
             margin-bottom: 10px;
         }
     </style>
-    <script>
-        $(document).ready(function () {
 
-            show_comment()
-        });
-
-
-        function save_comment() {
-            let name = $('#name').val()
-            let comment = $('#comment').val()
-            $.ajax({
-                type: 'POST',
-                url: '/fourglass/team2/addReply',
-                data: {name_give: name, comment_give: comment},
-                success: function (response) {
-                    alert(response['msg'])
-                    window.location.reload()
-                }
-            })
-        }
-
-        function show_comment() {
-            $.ajax({
-                type: "GET",
-                url: "/fourglass/team2/findReply",
-                data: {},
-                success: function (response) {
-                    let rows = response['comments']
-                    for (let i = 0; i < rows.length; i++) {
-                        let name = rows[i]['name']
-                        let comment = rows[i]['comment']
-
-                        let temp_html = `<div class="card">
-                                            <div class="card-body">
-                                                <blockquote class="blockquote mb-0">
-                                                    <p>${comment}</p>
-                                                    <footer class="blockquote-footer">${name}</footer>
-
-                                                </blockquote>
-                                            </div>
-                                        </div>`
-                        $('#comment-list').append(temp_html)
-                    }
-                }
-            });
-        }
-    </script>
+    <script type="text/javascript" src="../static/js/team2.js"></script>
+    <script type="text/javascript" src="../static/js/team2_comment.js"></script>
 </head>
 
 <body>
@@ -141,15 +97,15 @@
     </div>
 </div>
 <div class="mypost">
-    <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="name" placeholder="url">
-        <label for="floatingInput">이름</label>
+    <div class="input-group mb-2">
+        <input type="text" id="name" class="form-control" placeholder="이름">
+        <input type="password" id="pass" class="form-control" placeholder="비밀번호">
     </div>
     <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
-        <label for="floatingTextarea2">하고싶은말</label>
+        <textarea class="form-control" id="comment" placeholder="하고싶은말" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">하고 싶은 말</label>
     </div>
-    <button onclick="save_comment()" type="button" class="btn btn-dark">>_<</button>
+    <button onclick="save_comment('/fourglass/team2_get_cmt', '/fourglass/team2_add_cmt')" type="button" class="btn btn-dark">>_<</button>
 </div>
 <div class="mycards" id="comment-list">
 
