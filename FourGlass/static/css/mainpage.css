@@ -1,0 +1,120 @@
+
+* {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.mytitle {
+    height: 150px;
+    background-color: black;
+
+    color: white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.left-box {
+    padding-left: 20px;
+    padding-top: 20px;
+
+}
+
+.center-box {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
+    background-position: center;
+    background-size: cover;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.right-box {
+
+}
+
+
+.mybtn > button {
+    margin-right: 10px;
+}
+
+.mymain {
+    margin: 20px;
+    border: 3px solid black;
+
+    min-width: 1300px;
+    min-height: 1110px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("/static/image/notepad.jpg");
+
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.mymain > div {
+
+    border: 1px solid black;
+    margin: 10px;
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.commentForm {
+    height: auto;
+}
+
+.commentteb {
+
+    margin-top: 20px;
+    box-shadow: 0px 0px 3px 0px black;
+    padding: 20px;
+    width: 55%;
+    height: 280px;
+
+    overflow: auto;
+    word-break: break-all;
+}
+
+/*.myphoto {*/
+/*    margin: 20px;*/
+/*    border: 3px solid black;*/
+/*    background-color: green;*/
+/*    min-width: 1200px;*/
+/*    background-position: center;*/
+/*    background-size: cover;*/
+/*    background-image: url("/static/image/night.jpg");*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+.mycard {
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+
+
+}
+
+
