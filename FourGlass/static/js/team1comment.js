@@ -1,11 +1,11 @@
 function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
-    if($('.name').val()=="" || $('.team1comment').val()=="" || $('#pass').val()==""){ //유효성 검사
-        alert('빈칸이 없도록 입력해주세요.');
-        return;
-    }
     let name = $('#name').val();
     let comment = $('#comment').val();
     let pass = $('.pass').val();
+    if(name=="" || comment=="" || pass==""){ //유효성 검사
+        alert('빈칸이 없도록 입력해주세요.');
+        return;
+    }
     $.ajax({    //댓글 추가
         type : 'POST',
         url : add_url,          //클릭한 버튼의 url

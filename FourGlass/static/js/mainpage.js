@@ -1,42 +1,14 @@
 src = "https://code.jquery.com/jquery-3.4.1.js"
 $(document).ready(function () {
-    set_temp()
     show_comment()
 });
-
-function set_temp() {
-    $.ajax({
-        type: "GET",
-        url: "/main",
-        data: {},
-        success: function (response) {
-            $('#temp').text(response['temp'])
-        }
-    })
-
-
-}
 
 function save_comment() {
     let name = $('#name').val()
     let comment = $('#comment').val()
     let pass = $(`#pass`).val()
-    if ($("#name").val().length == 0) {
-        alert("이름을 입력해주세요!");
-        $("#name").focus();
-        return false;
-    }
-
-    if ($("#comment").val().length == 0) {
-        alert("댓글써주세요~");
-        $("#comment").focus();
-        return false;
-    }
-    if ($("#pass").val().length == 0) {
-        alert("비밀번호입력해주세요");
-        $("#pass").focus();
-        return false;
-    }
+    if(name=="" || comment=="" || pass=="")
+        alert("빈칸이 없도록 입력해주세요.")
 
     $.ajax({
         type: 'POST',
@@ -72,8 +44,6 @@ function show_comment() {
                                             </div>
                                         </div>`
                 $('#comment-list').append(temp_html)
-
-
             }
         }
     });

@@ -34,10 +34,10 @@ $(document).on('click', '#delBtn', function(){
     });
 });
 
-$(document).on('click', '#modifyBtn', function(){
+$(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
     let num = prompt('비밀번호를 입력하세요.')
     let id = $(this).attr('class')
-    function find_cmt(callbackfunc) {
+    function find_cmt(callbackfunc) {   //수정한 댓글의 비밀번호 확인
         $.ajax({
             type : 'POST',
             url : '/fourglass/team1_find_cmt',
