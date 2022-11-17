@@ -7,11 +7,11 @@ app = Flask(__name__)
 
 ca = certifi.where()
 
-# client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-# db = client.sparta // 테스트
+client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+db = client.sparta
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
-db = client.dbsparta
+# client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
+# db = client.dbsparta
 
 # *----------------------송지훈------------------------------
 
@@ -26,8 +26,8 @@ def team4_insert_review():
     review_receive = request.form['review_give']
     count = 0
     if (db.team4.count_documents({}) != 0):
-        count = (db.team4.find({}, {'_id': False}).sort(
-            '_id', -1)[0]['num']) + 1
+        count = (db.team4.find({},{'_id': False})
+                 .sort('_id', -1)[0]['num']) + 1
 
     doc = {
         'review': review_receive,
@@ -39,7 +39,7 @@ def team4_insert_review():
 
 @app.route("/fourglass/team4_read_review", methods=["GET"])
 def team4_read_review():
-    reviews = list(db.team4.find({}, {'_id': False}).sort('_id', -1).limit(3))
+    reviews = list(db.team4.find({}, {'_id': False}).sort('_id', -1).limit(5))
     return jsonify({'reviews': reviews})
 
 
@@ -71,7 +71,7 @@ def team4_release_review():
 #     review_receive = request.form['review_give']
 #     num_receive = request.form['num_give']
 
-#     db.team4.update_one({'num': num_receive}, {
+#     db.team4.update_one({'num': int(num_receive)}, {
 #                         '$set': {'reivew': review_receive}})
 #     return jsonify({'msg': '연결'})
 
@@ -82,6 +82,7 @@ def team4_release_review():
 @app.route('/')
 def home():
     return render_template('mainpage.html')
+
 
 @app.route("/main", methods=["POST"])
 def main_comment_post():
@@ -119,14 +120,27 @@ def team3comment():
 def team3_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-
+    pass_receive = request.form["pass_give"]
     team3_list = list(db.team3_comment.find({}, {'_id': False}))
     count = len(team3_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    doc = {'idx': count, 'name': name_receive, 'pass':pass_receive,'comment': comment_receive}
     db.team3_comment.insert_one(doc)
 
     return jsonify({'msg': '응원 감사합니다!!'})
+
+@app.route("/fourglass/team3_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
+def team3_find_cmt():
+    id_receive = int(request.form['id_give'])
+    find_list = list(db.team3_comment.find({"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
+    return jsonify({'result': find_list})
+
+
+@app.route("/fourglass/team3_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
+def team3_del_cmt():
+    id_receive = int(request.form["id_give"])
+    db.team3_comment.delete_one({'idx': id_receive})
+    return jsonify({'msg': '삭제 완료!'})
 
 
 @app.route("/team3comment", methods=["GET"])

@@ -1,0 +1,147 @@
+
+* {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+body {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/image/fall.png");
+
+}
+
+h1 {
+    color: white;
+}
+
+.mytitle {
+    padding-top: 20px;
+    height: 80px;
+    color: white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.left-box {
+    padding-left: 20px;
+    padding-top: 20px;
+
+}
+
+.center-box {
+    background-position: center;
+    background-size: cover;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.right-box {
+
+}
+
+h1.sixth {
+    position: relative;
+}
+
+h1.sixth:before,
+h1.sixth:after {
+    content: '[';
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    height: 100%;
+    font-size: 1.25em;
+    color: tomato;
+
+    transition: all 0.5s ease;
+}
+
+h1.sixth:after {
+    content: ']';
+}
+
+h1.sixth:hover:before {
+    transform: translateX(-5px);
+}
+
+h1.sixth:hover:after {
+    transform: translateX(5px);
+}
+
+.mymain {
+    margin: 20px;
+    border: 3px solid black;
+
+    min-width: 1300px;
+    min-height: 1200px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("/static/image/notepad.jpg");
+
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.mycard {
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+
+
+}
+
+
+.commentForm {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.commentteb {
+
+    margin-top: 20px;
+    box-shadow: 0px 0px 3px 0px black;
+    padding: 20px;
+    width: 55%;
+    height: 280px;
+
+    overflow: auto;
+    word-break: break-all;
+}
+
+/*.myphoto {*/
+/*    margin: 20px;*/
+/*    border: 3px solid black;*/
+/*    background-color: green;*/
+/*    min-width: 1200px;*/
+/*    background-position: center;*/
+/*    background-size: cover;*/
+/*    background-image: url("/static/image/night.jpg");*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+
+
+

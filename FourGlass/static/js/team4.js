@@ -54,6 +54,10 @@
     });
   })();
 
+  document.addEventListener('contextmenu',(event)=>{
+    event.preventDefault();
+    alert('zzz');
+  })
   // 화면 상단 팀소개페이지 영역을 누르면 메인페이지로 이동
   teamPage.addEventListener("click", () => {
     window.location.href = "/";
