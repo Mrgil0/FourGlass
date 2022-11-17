@@ -96,6 +96,19 @@ def main_comment_post():
 
     return jsonify({'msg':'어서오세요!'})
 
+@app.route("/fourglass/main_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
+def main_find_cmt():
+    id_receive = int(request.form['id_give'])
+    find_list = list(db.main_comment.find({"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
+    return jsonify({'result': find_list})
+
+
+@app.route("/fourglass/main_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
+def main_del_cmt():
+    id_receive = int(request.form["id_give"])
+    db.main_comment.delete_one({'idx': id_receive})
+    return jsonify({'msg': '삭제 완료!'})
+
 
 
 
@@ -208,7 +221,9 @@ def team1_update_cmt():
 
 @app.route("/fourglass/team2_add_cmt", methods=["POST"])
 def team2_add_cmt_post():
+    name_receive = request.form["name_give"]
     pass_receive = request.form["pass_give"]
+    comment_receive = request.form["comment_give"]
     comment_list = list(db.team2_comment.find({}, {'_id': False}))
     count = len(comment_list) + 1
     doc = {
@@ -239,9 +254,6 @@ def team2_del_cmt():
     id_receive = int(request.form["id_give"])
     db.team2_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
-
-
-
 
 
 if __name__ == '__main__':
