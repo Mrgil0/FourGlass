@@ -62,10 +62,15 @@
     padding:10px;
     border: 1px;
 }
-#replyModalBtn, #replyBtn{
+#replyModalBtn{
     margin:0 3px;
     padding:10px;
     border: 1px;
+}
+#replyBtn{
+    margin:0 3px;
+    height:30px;
+    border:1px;
 }
 #modifyCheckBtn{
     visibility: hidden;

@@ -224,8 +224,8 @@ def team1_add_reply():
 @app.route("/fourglass/team1_get_reply", methods=["POST"])    #해당 댓글의 답글 불러오기
 def team1_get_reply():
     cmtid_receive = request.form["id_give"]
-    find_list = list(db.team1_reply.find(
-        {"comment_id": cmtid_receive}, {'_id': 0}))
+    find_list = list(db.team1_reply.find({"comment_id": cmtid_receive}, {'_id': 0}).sort('idx', -1))
+    #댓글의 id에 맞는 답글을 _id를 제외하고 idx기준 내림차순으로 정렬
     return jsonify({'list': find_list})
 
 # team1 end-----------------------------------------------------------------------

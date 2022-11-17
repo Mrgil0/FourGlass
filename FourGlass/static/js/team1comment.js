@@ -41,6 +41,7 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                                     <button class="${idx}" id="modifyCheckBtn" type="button">확인</button>
                                 </div>
                                 <div id="replyModal${idx}" style="display:none">
+                                <hr>
                                     <div style="display:table" id="showReply${idx}"></div>
                                     <div style="overflow: hidden" id="replyCmt">
                                         <input class="replyName" id="replyName${idx}" name="replyName" type="text" placeholder="이름">
@@ -56,7 +57,7 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
     })
 }
 
-$(document).on('click', '#replyModalBtn', function(){
+$(document).on('click', '#replyModalBtn', function(){   //답글을 열고 닫기 위한 함수
     let id = $(this).attr('class')
     $('#showReply'+id).empty()
     let modal = $('#replyModal'+id)
@@ -71,7 +72,7 @@ $(document).on('click', '#replyModalBtn', function(){
         type : "POST",
         url : "fourglass/team1_get_reply",
         data : {'id_give': id},
-        success : function (response){
+        success : function (response){  //성공하면 답글이 바로 위에 달린다
             let rows = response['list']
             for(let i=0; i<rows.length; i++){
                 let replyName = rows[i]['replyName']
@@ -97,7 +98,9 @@ $(document).on('click', '#replyBtn', function(){
             let temp_html = `<div style="display:table-row">
                              <input class="replyListName" readonly value="${replyName}" onfocus="this.blur();">
                              <input class="replyListText" readonly value="${replyText}" onfocus="this.blur();"></div>`
-            $('#showReply').prepend(temp_html)
+            $('#replyName'+id).val("")
+            $('#replyText'+id).val("")
+            $('#showReply'+id).append(temp_html)
         },
         error: function (response) {
             console.log(response);
