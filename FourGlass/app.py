@@ -112,17 +112,17 @@ def team1():
 
 
 # ------------------team3yook---------------------------------
-@app.route('/')
-def team3():
+@app.route('/team3')
+def team3comment():
     return render_template('team3.html')
 
 
-@app.route("/team3", methods=["POST"])
+@app.route("/team3comment", methods=["POST"])
 def team3_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
 
-    team3_list = list(db.team3.find({}, {'_id': False}))
+    team3_list = list(db.team3_comment.find({}, {'_id': False}))
     count = len(team3_list) + 1
 
     doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
@@ -131,10 +131,10 @@ def team3_post():
     return jsonify({'msg': '응원 감사합니다!!'})
 
 
-@app.route("/team3", methods=["GET"])
+@app.route("/team3comment", methods=["GET"])
 def team3_get():
-    comment_list = list(db.team3_comment.find({}, {'_id': False}))
-    return jsonify({'team3': comment_list})
+    team3_list = list(db.team3_comment.find({}, {'_id': False}))
+    return jsonify({'team3comment': team3_list})
 
 
 # ------------------team3yook---------------------------------
