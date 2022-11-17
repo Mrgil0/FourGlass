@@ -161,7 +161,7 @@ def team_update_cmt():
     db.team1_comment.update({'id': id_receive}, {'$set': {'name': name_receive, 'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
 
-
+/
 @app.route("/4glass", methods=["POST"])
 
 
