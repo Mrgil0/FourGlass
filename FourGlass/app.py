@@ -198,7 +198,7 @@ def team2():
     return render_template('team2.html')
 
 
-@app_route("fourglass/team_update_cmt", methods=["POST"])
+@app.route("fourglass/team_update_cmt", methods=["POST"])
 def team_update_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
