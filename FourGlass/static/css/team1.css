@@ -20,11 +20,11 @@
 }
 .picture{
     width : 100%x;
-    height : 229px;
+    height : 100%;
 }
 .addComment{
     display : inline-block;
-    border : 5px inset #000;
+    border : 3px inset #000;
 }
 .addComment:hover{
     background-color: #777;
@@ -53,7 +53,10 @@
     padding:10px;
     border: 1px;
 }
-#delBtn, modifyBtn{
+#delBtn{
+    margin-right: 50px;
+}
+#delBtn, #modifyBtn, #modifyCheckBtn{
     float:right;
     margin:0 3px;
     padding:10px;

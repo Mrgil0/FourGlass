@@ -39,7 +39,7 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                                     <button class="${idx}" id="modifyBtn" type="button">수정</button>
                                     <button class="${idx}" id="modifyCheckBtn" type="button">확인</button>
                                 </div>`
-                $(add_tag).append(temp_div)
+                $(add_tag).prepend(temp_div)
             }
         }
     })
