@@ -102,10 +102,6 @@ def mainpage_get():
     return jsonify({'mainpage':main_list})
 
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
-
-
 # ----------------------------------------------
 # >>>>>>> parent of fc79571 (Merge branch 'main' of https://github.com/Mrgil0/FourGlass)
 
