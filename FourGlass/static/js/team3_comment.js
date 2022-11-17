@@ -12,12 +12,12 @@ window.onload = function () {
 }
 
 
-    $(document).ready(function () {
+$(document).ready(function () {
     set_temp()
     show_comment()
 });
 
-    function set_temp() {
+function set_temp() {
     $.ajax({
         type: "GET",
         url: "/team3",
@@ -30,34 +30,34 @@ window.onload = function () {
 
 }
 
-    function save_comment() {
+function save_comment() {
     let name = $('#name').val()
     let comment = $('#comment').val()
 
     if ($("#name").val().length == 0) {
-    alert("이름을 입력해주세요!");
-    $("#name").focus();
-    return false;
-}
+        alert("이름을 입력해주세요!");
+        $("#name").focus();
+        return false;
+    }
 
     if ($("#comment").val().length == 0) {
-    alert("응원해주세요~");
-    $("#comment").focus();
-    return false;
-}
+        alert("응원해주세요~");
+        $("#comment").focus();
+        return false;
+    }
 
     $.ajax({
-    type: 'POST',
-    url: '/team3',
-    data: {name_give: name, comment_give: comment},
-    success: function (response) {
-    alert(response['msg'])
-    window.location.reload()
-}
-})
+        type: 'POST',
+        url: '/team3',
+        data: {name_give: name, comment_give: comment},
+        success: function (response) {
+            alert(response['msg'])
+            window.location.reload()
+        }
+    })
 }
 
-    function show_comment() {
+function show_comment() {
     $.ajax({
         type: "GET",
         url: "/team3",
