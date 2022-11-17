@@ -4,30 +4,30 @@
 
 .about-team {
   width: 100%;
-  height: 100px;
+  height: 105px;
   text-align: center;
   line-height: 100px;
   background-color: white;
 }
 
 .about-team:hover {
-  background-color: green;
+  background-color: rgba(213,132,32,0.3);
 }
 
 .about-me {
   background-color: royalblue;
   width: 100%;
-  height: 100px;
+  height: 150px;
 }
 
 .review {
   background-color: olivedrab;
   width: 100%;
-  height: 100px;
+  height: 150px;
 }
 
 .btn-box {
   background-color: darkkhaki;
   width: 100%;
-  height: 100px;
+  height: 150px;
 }

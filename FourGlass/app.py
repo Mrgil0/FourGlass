@@ -26,8 +26,8 @@ def team4_insert_review():
     review_receive = request.form['review_give']
     count = 0
     if (db.team4.count_documents({}) != 0):
-        count = (db.team4.find({}, {'_id': False}).sort(
-            '_id', -1)[0]['num']) + 1
+        count = (db.team4.find({},{'_id': False})
+                 .sort('_id', -1)[0]['num']) + 1
 
     doc = {
         'review': review_receive,
@@ -71,7 +71,7 @@ def team4_release_review():
 #     review_receive = request.form['review_give']
 #     num_receive = request.form['num_give']
 
-#     db.team4.update_one({'num': num_receive}, {
+#     db.team4.update_one({'num': int(num_receive)}, {
 #                         '$set': {'reivew': review_receive}})
 #     return jsonify({'msg': '연결'})
 
@@ -82,6 +82,7 @@ def team4_release_review():
 @app.route('/')
 def home():
     return render_template('mainpage.html')
+
 
 @app.route("/main", methods=["POST"])
 def main_comment_post():
