@@ -7,9 +7,11 @@ app = Flask(__name__)
 
 ca = certifi.where()
 
-client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client.sparta
+# client = MongoClient("mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+# db = client.sparta // 테스트
 
+client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
+db = client.dbsparta
 
 # *----------------------송지훈------------------------------
 
