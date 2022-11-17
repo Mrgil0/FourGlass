@@ -78,8 +78,8 @@ function show_comment() {
                                                 <blockquote class="blockquote mb-0">
                                                     <p><span style="color: #7140dd">닉네임:</span> ${name}</p>
                                                     <footer onclick="done_intro()" class="blockquote-footer">${comment}</footer>
-                                                    <button class="${idx}" id="delbtn" className="card-link" style="margin-right: 5px" >삭제하기
-                                                    </a>
+                                                    <button class="${idx}" id="delbtn" className="card-link" style="margin-right: 5px" >삭제</button>
+                                                    <button className="card-link">수정</button>
                                                 </blockquote>
                                             </div>
                                         </div>`
