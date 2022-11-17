@@ -4,9 +4,8 @@
 }
 
 .mytitle {
-    height: 150px;
-    background-color: black;
-
+    padding-top: 20px;
+    height: 80px;
     color: white;
 
     display: grid;
@@ -20,7 +19,6 @@
 }
 
 .center-box {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://cdn.fneyefocus.com/news/photo/201502/8623_10212_1201.jpg");
     background-position: center;
     background-size: cover;
 
@@ -37,6 +35,34 @@
 
 }
 
+h1.sixth {
+    position: relative;
+}
+
+h1.sixth:before,
+h1.sixth:after {
+    content: '[';
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    height: 100%;
+    font-size: 1.25em;
+    color: tomato;
+
+    transition: all 0.5s ease;
+}
+
+h1.sixth:after {
+    content: ']';
+}
+
+h1.sixth:hover:before {
+    transform: translateX(-5px);
+}
+
+h1.sixth:hover:after {
+    transform: translateX(5px);
+}
 
 .mybtn > button {
     margin-right: 10px;
@@ -58,19 +84,40 @@
     flex-direction: column;
 }
 
-.mymain > div {
+.mycard {
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.card {
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+
+
+}
+
+body {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/image/fall.png");
+
+}
+
+h1 {
+    color: white;
+}
+
+
+.commentForm {
     border: 1px solid black;
     margin: 10px;
     padding: 5px;
-
-    display: flex;
-    flex-direction: column;
 }
 
-.commentForm {
-    height: auto;
-}
 
 .commentteb {
 
@@ -99,22 +146,6 @@
 /*    align-items: center;*/
 /*}*/
 
-.mycard {
-    display: flex;
-    padding: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-.card {
-    margin: 10px;
-    padding: 10px;
-    width: 300px;
-
-
-}
 
 
