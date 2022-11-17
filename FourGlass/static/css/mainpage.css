@@ -100,6 +100,7 @@ h1.sixth:hover:after {
 }
 
 .introduce {
+    color: white;
     margin-right: 10px;
     flex: auto;
     min-width: 400px;
