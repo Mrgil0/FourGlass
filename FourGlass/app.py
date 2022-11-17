@@ -120,14 +120,27 @@ def team3comment():
 def team3_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
-
+    pass_receive = request.form["pass_give"]
     team3_list = list(db.team3_comment.find({}, {'_id': False}))
     count = len(team3_list) + 1
 
-    doc = {'num': count, 'name': name_receive, 'comment': comment_receive}
+    doc = {'idx': count, 'name': name_receive, 'pass':pass_receive,'comment': comment_receive}
     db.team3_comment.insert_one(doc)
 
     return jsonify({'msg': '응원 감사합니다!!'})
+
+@app.route("/fourglass/team3_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
+def team3_find_cmt():
+    id_receive = int(request.form['id_give'])
+    find_list = list(db.team3_comment.find({"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
+    return jsonify({'result': find_list})
+
+
+@app.route("/fourglass/team3_del_cmt", methods=["POST"])  # 팀원1의 댓글 삭제
+def team3_del_cmt():
+    id_receive = int(request.form["id_give"])
+    db.team3_comment.delete_one({'idx': id_receive})
+    return jsonify({'msg': '삭제 완료!'})
 
 
 @app.route("/team3comment", methods=["GET"])
