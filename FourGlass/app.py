@@ -88,10 +88,11 @@ def home():
 def main_comment_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
+    pass_receive = request.form["pass_give"]
     main_list = list(db.main_comment.find({}, {'_id': False}))
     count = len(main_list) + 1
 
-    doc = {'num' : count , 'name': name_receive , 'comment': comment_receive}
+    doc = {'idx' : count , 'name': name_receive , 'comment': comment_receive, 'pass': pass_receive}
     db.main_comment.insert_one(doc)
 
     return jsonify({'msg':'어서오세요!'})
