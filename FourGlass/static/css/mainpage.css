@@ -4,7 +4,6 @@
 }
 
 body {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
     background-color: black;
 }
 
@@ -87,7 +86,7 @@ h1.sixth:hover:after {
 
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    
 }
 
 .mycard {
@@ -116,7 +115,6 @@ h1.sixth:hover:after {
 
 
 }
-
 
 .commentForm {
     border: 1px solid black;

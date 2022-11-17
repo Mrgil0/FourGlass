@@ -32,7 +32,7 @@ function save_comment() {
         $("#comment").focus();
         return false;
     }
-     if ($("#pass").val().length == 0) {
+    if ($("#pass").val().length == 0) {
         alert("비밀번호입력해주세요");
         $("#pass").focus();
         return false;
@@ -41,7 +41,7 @@ function save_comment() {
     $.ajax({
         type: 'POST',
         url: '/main',
-        data: {name_give: name, comment_give: comment , pass_give:pass},
+        data: {name_give: name, comment_give: comment, pass_give: pass},
         success: function (response) {
             alert(response['msg'])
             window.location.reload()
@@ -66,7 +66,8 @@ function show_comment() {
                                                     <p><span style="color: #7140dd">닉네임:</span> ${name}</p>
                                                     <footer class="blockquote-footer">${comment}
                                                     <hr></footer>
-                                                    <button class="${idx}" id="delbtn" className="card-link">삭제</a>
+                                                    <button class="${idx}" id="delbtn" className="card-link">삭제</button>
+                                                    <button class="${idx}" id="corbtn" className="card-link">수정</button>   
                                                 </blockquote>
                                             </div>
                                         </div>`
@@ -77,6 +78,7 @@ function show_comment() {
         }
     });
 }
+
 $(document).on('click', '#delbtn', function () {
     let num = prompt('비밀번호를 입력하세요.')
     let id = $(this).attr('class')
