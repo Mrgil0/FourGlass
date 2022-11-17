@@ -150,7 +150,15 @@ h1.sixth:hover:after {
 /*    justify-content: center;*/
 /*    align-items: center;*/
 /*}*/
-
+#name{
+  width:100px
+}
+#comment{
+  width:200px
+}
+#pass{
+  width:100px
+}
 
 
 
