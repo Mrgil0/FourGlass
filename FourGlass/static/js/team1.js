@@ -43,7 +43,6 @@ $(document).on('click', '#modifyBtn', function(){
             url : '/fourglass/team1_find_cmt',
             data : {'id_give': id},
             success : function (response){
-                console.log(response['result'])
                 let result = response['result']
                 if(num === result[0]['pass']){
                     callbackfunc(result[0]['idx'])
@@ -69,7 +68,7 @@ $(document).on('click', '#modifyCheckBtn', function(){
     let comment = $('#comment'+id).val()
     $.ajax({
         type : 'POST',
-        url : "fourglass/team_update_cmt",
+        url : "/fourglass/team1_update_cmt",
         data : {'id_give': id, 'name_give': name, 'comment_give': comment},
         success : function(response){
             alert(response['msg'])
