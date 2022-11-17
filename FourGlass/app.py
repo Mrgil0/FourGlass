@@ -152,6 +152,10 @@ def team3_get():
 # ------------------team3yook---------------------------------
 
 # =======
+@app.route('/team1')
+def team1():
+    return render_template('team1.html')
+
 @app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 댓글 남기기
 def team1_add_cmt():
     name_receive = request.form["name_give"]
