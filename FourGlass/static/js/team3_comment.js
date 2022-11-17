@@ -54,7 +54,7 @@ function save_comment() {
     $.ajax({
         type: 'POST',
         url: '/team3comment',
-        data: {name_give: name, comment_give: comment ,'pass_give': pass},
+        data: {name_give: name, comment_give: comment ,pass_give: pass},
         success: function (response) {
             alert(response['msg'])
             window.location.reload()
