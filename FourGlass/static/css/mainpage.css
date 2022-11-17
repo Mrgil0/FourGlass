@@ -1,0 +1,159 @@
+
+* {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+body {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background-color: black;
+}
+
+h1 {
+    color: white;
+}
+
+.mytitle {
+    padding-top: 20px;
+    height: 80px;
+    color: white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.left-box {
+    padding-left: 20px;
+    padding-top: 20px;
+
+}
+
+.center-box {
+    background-position: center;
+    background-size: cover;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.right-box {
+
+}
+
+h1.sixth {
+    position: relative;
+}
+
+h1.sixth:before,
+h1.sixth:after {
+    content: '[';
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    height: 100%;
+    font-size: 1.25em;
+    color: tomato;
+
+    transition: all 0.5s ease;
+}
+
+h1.sixth:after {
+    content: ']';
+}
+
+h1.sixth:hover:before {
+    transform: translateX(-5px);
+}
+
+h1.sixth:hover:after {
+    transform: translateX(5px);
+}
+
+.mymain {
+    margin: 20px;
+    border: 3px solid black;
+
+    min-width: 1300px;
+    min-height: 1200px;
+    background-position: center;
+    background-size: cover;
+    background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/image/notepad.jpg");
+
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.mycard {
+    padding: 10px;
+    text-align: center;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: auto;
+}
+
+.introduce {
+    margin-right: 10px;
+    flex: auto;
+    min-width: 400px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.card {
+
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+
+
+}
+
+
+.commentForm {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 20px;
+}
+
+
+.commentteb {
+
+    margin-top: 20px;
+    box-shadow: 0px 0px 3px 0px black;
+    padding: 20px;
+
+    overflow: auto;
+    word-break: break-all;
+}
+
+.commentteb > .card {
+    width: 95%;
+}
+
+/*.myphoto {*/
+/*    margin: 20px;*/
+/*    border: 3px solid black;*/
+/*    background-color: green;*/
+/*    min-width: 1200px;*/
+/*    background-position: center;*/
+/*    background-size: cover;*/
+/*    background-image: url("/static/image/night.jpg");*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+
+
+
