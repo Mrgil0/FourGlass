@@ -81,7 +81,7 @@ def team4_release_review():
 def home():
     return render_template('mainpage.html')
 
-@app.route("/mainpage", methods=["POST"])
+@app.route("/main", methods=["POST"])
 def main_comment_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
@@ -96,10 +96,10 @@ def main_comment_post():
 
 
 
-@app.route("/mainpage", methods=["GET"])
+@app.route("/main", methods=["GET"])
 def mainpage_get():
     main_list = list(db.main_comment.find({}, {'_id': False}))
-    return jsonify({'mainpage':main_list})
+    return jsonify({'main':main_list})
 
 
 # ----------------------------------------------
