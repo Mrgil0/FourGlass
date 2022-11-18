@@ -58,14 +58,13 @@ $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
         $('#comment'+idx).attr('onfocus', this.value=$('#comment'+idx).val())
         $('#name'+idx).attr('readonly', false)
         $('#name'+idx).attr('onfocus', this.value=$('#name'+idx).val())
-        $("#modifyCheckBtn").attr('style', 'visibility:visible')
+        $("#modifyCheckBtn"+idx).attr('style', 'visibility:visible')
     })
 })
-
-$(document).on('click', '#modifyCheckBtn', function(){
-    let id = $(this).attr('class')
+function modifyCheck(id){
     let name = $('#name'+id).val()
     let comment = $('#comment'+id).val()
+    alert(id)
     $.ajax({
         type : 'POST',
         url : "/fourglass/team1_update_cmt",
@@ -75,4 +74,4 @@ $(document).on('click', '#modifyCheckBtn', function(){
             location.reload()
         }
     })
-})
+}

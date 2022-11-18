@@ -72,7 +72,9 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                                     <button class="${idx}" id="replyModalBtn" type="button">답글 보기</button>
                                     <button class="${idx}" id="delBtn" type="button">삭제</button>
                                     <button class="${idx}" id="modifyBtn" type="button">수정</button>
-                                    <button class="${idx}" id="modifyCheckBtn" type="button">확인</button>
+                                    <div id="hiddenBtn">
+                                    <button class="${idx}" id="modifyCheckBtn${idx}" onclick="modifyCheck(${idx})" type="button">확인</button>
+                                    </div>
                                 </div>
                                 <div id="replyModal${idx}" style="display:none">
                                 <hr>
