@@ -1,3 +1,10 @@
+function isDefined(value){
+    if(value === undefined){ //value가 비정상적인 값이면 true 반환
+        return false
+    }
+    return true
+}
+
 function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
     let name = $('#name').val();
     let comment = $('#comment').val();
@@ -6,17 +13,44 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
         alert('빈칸이 없도록 입력해주세요.');
         return;
     }
-    $.ajax({    //댓글 추가
-        type : 'POST',
-        url : add_url,          //클릭한 버튼의 url
-        data : {'name_give':name, 'comment_give':comment, 'pass_give':pass},
-        success: function(response){
-            alert(response['msg'])
-            location.reload()
-        },
-        error : function(response){
-            console.log(response);
+    function create_index(callbackfunc){ //db에서 comment리스트 가져오기
+        $.ajax({
+            type : "GET",
+            url : get_url,
+            data : {},
+            success : function(response){
+                let rows = response['comments']
+                callbackfunc(rows)
+            },
+            error : function(response) {
+                console.log(response)
+            }
+        });
+    }
+    create_index(function(rows){ //콜백함수 create_index가 성공해야 실행됨
+        let idx =1
+        for(let i=0; i<rows.length; i++) { //db에 아무것도 없을 경우 가져온 데이터가 undefined되어 idx를 1로 지정
+            if(!isDefined(rows[0])){
+                break;
+            }
+            let temp = rows[i]['idx']
+            if (temp > idx) {
+                idx = temp
+            }  //db의 index중 제일 큰값이 idx가 됨
+            idx++
         }
+        $.ajax({    //댓글 추가
+            type: 'POST',
+            url: add_url,          //클릭한 버튼의 url
+            data: {'id_give': idx, 'name_give': name, 'comment_give': comment, 'pass_give': pass},
+            success: function (response) {
+                alert(response['msg'])
+                location.reload()
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
     });
 }
 
@@ -46,7 +80,7 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                                     <div style="overflow: hidden" id="replyCmt">
                                         <input class="replyName" id="replyName${idx}" name="replyName" type="text" placeholder="이름">
                                         <input class="replyText" id="replyText${idx}" name="replyText" type="text" placeholder="답글">
-                                        <button class="${idx}" id="replyBtn" type="button">답글달기</button>
+                                        <button class="${idx}" id="replyBtn" type="button">댓글 달기</button>
                                     </div>
                                 </div>
                                 <hr>`
@@ -63,10 +97,10 @@ $(document).on('click', '#replyModalBtn', function(){   //답글을 열고 닫�
     let modal = $('#replyModal'+id)
     if(modal.attr('style')=="display:none"){
         modal.attr('style', 'display:block')
-        $(this).html('답글 닫기')
+        $(this).html('댓글 닫기')
     } else{
         modal.attr('style', 'display:none')
-        $(this).html('답글 보기')
+        $(this).html('댓글 보기')
     }
     $.ajax({
         type : "POST",

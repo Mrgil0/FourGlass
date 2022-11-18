@@ -160,15 +160,14 @@ def team3_get():
 def team1():
     return render_template('team1.html')
 
-@app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 댓글 남기기
+@app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 방명록 남기기
 def team1_add_cmt():
+    id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
     pass_receive = request.form["pass_give"]
-    comment_list = list(db.team1_comment.find({}, {'_id': False}))
-    count = len(comment_list) + 1
     doc = {
-        'idx': count,
+        'idx': id_receive,
         'name': name_receive,
         'comment': comment_receive,
         'pass': pass_receive
@@ -177,27 +176,28 @@ def team1_add_cmt():
     return jsonify({'msg': '방명록 작성 완료!'})
 
 
-@app.route("/fourglass/team1_get_cmt", methods=["GET"])  # 댓글목록 가져오기
+@app.route("/fourglass/team1_get_cmt", methods=["GET"])  # 방명록 목록 가져오기
 def team1_get_cmt():
     comment_list = list(db.team1_comment.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
 
 
-@app.route("/fourglass/team1_find_cmt", methods=["POST"])  # 댓글의 인덱스 번호 찾기
+@app.route("/fourglass/team1_find_cmt", methods=["POST"])  # 방명록의 인덱스 번호 찾기
 def team1_find_cmt():
     id_receive = int(request.form['id_give'])
     find_list = list(db.team1_comment.find(
         {"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
+    print(find_list)
     return jsonify({'result': find_list})
 
 
-@app.route("/fourglass/team1_del_cmt", methods=["POST"])  # 댓글 삭제
+@app.route("/fourglass/team1_del_cmt", methods=["POST"])  # 방명록 삭제
 def team1_del_cmt():
     id_receive = int(request.form["id_give"])
     db.team1_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
-@app.route("/fourglass/team1_update_cmt", methods=["POST"])  #댓글 수정
+@app.route("/fourglass/team1_update_cmt", methods=["POST"])  #방명록 수정
 def team1_update_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
@@ -205,7 +205,7 @@ def team1_update_cmt():
     db.team1_comment.update_one({'idx': id_receive}, {'$set': {'name': name_receive, 'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
 
-@app.route("/fourglass/team1_add_reply", methods=["POST"])  #답글 추가
+@app.route("/fourglass/team1_add_reply", methods=["POST"])  #댓글 추가
 def team1_add_reply():
     cmtid_receive = request.form["id_give"]
     name_receive = request.form["name_give"]
@@ -221,11 +221,11 @@ def team1_add_reply():
     db.team1_reply.insert_one(doc)
     return jsonify({'msg': True})
 
-@app.route("/fourglass/team1_get_reply", methods=["POST"])    #해당 댓글의 답글 불러오기
+@app.route("/fourglass/team1_get_reply", methods=["POST"])    #댓글 불러오기
 def team1_get_reply():
     cmtid_receive = request.form["id_give"]
     find_list = list(db.team1_reply.find({"comment_id": cmtid_receive}, {'_id': 0}).sort('idx', -1))
-    #댓글의 id에 맞는 답글을 _id를 제외하고 idx기준 내림차순으로 정렬
+    #방명록의 id에 맞는 댓글을 _id를 제외하고 idx기준 내림차순으로 정렬
     return jsonify({'list': find_list})
 
 # team1 end-----------------------------------------------------------------------
