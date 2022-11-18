@@ -5,7 +5,6 @@ $(document).ready(function () {
 $(document).on('click', '#delbtn', function () {
     let num = prompt('비밀번호를 입력하세요.')
     let id = $(this).attr('class')
-
     function find_comment(callbackfunc) {
         $.ajax({
             type: 'POST',

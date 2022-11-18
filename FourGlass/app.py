@@ -11,6 +11,7 @@ client = MongoClient(
     "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client.sparta
 
+
 # client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
 # db = client.dbsparta
 
@@ -28,7 +29,7 @@ def team4_insert_review():
     count = 0
     if (db.team4.count_documents({}) != 0):
         count = (db.team4.find({}, {'_id': False})
-                 .sort('_id', -1)[0]['num']) + 1
+        .sort('_id', -1)[0]['num']) + 1
 
     doc = {
         'review': review_receive,
@@ -66,6 +67,7 @@ def team4_release_review():
     db.team4.delete_many({})
     return jsonify({'msg': 'linked'})
 
+
 # 팀 소개 페이지의 댓글 수정
 
 
@@ -77,7 +79,7 @@ def main_modified_cmt():
     print(before_receive)
     print(modified_receive)
     db.main_comment.update_one({'comment': before_receive}, {
-                        '$set': {'comment': modified_receive}})
+        '$set': {'comment': modified_receive}})
     return jsonify({'msg': '연결'})
 
 
@@ -140,6 +142,7 @@ def main_del_cmt():
     db.main_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
+
 # main end-----------------------------------------------------------------------
 
 
@@ -191,8 +194,8 @@ def team3_get():
 def team1():
     return render_template('team1.html')
 
-@app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 방명록 남기기
 
+@app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 방명록 남기기
 def team1_add_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
@@ -229,17 +232,18 @@ def team1_del_cmt():
     db.team1_comment.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
-@app.route("/fourglass/team1_update_cmt", methods=["POST"])  #방명록 수정
 
+@app.route("/fourglass/team1_update_cmt", methods=["POST"])  # 방명록 수정
 def team1_update_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
     db.team1_comment.update_one({'idx': id_receive}, {
-                                '$set': {'name': name_receive, 'comment': comment_receive}})
+        '$set': {'name': name_receive, 'comment': comment_receive}})
     return jsonify({'msg': '수정 완료!'})
 
-@app.route("/fourglass/team1_add_reply", methods=["POST"])  #댓글 추가
+
+@app.route("/fourglass/team1_add_reply", methods=["POST"])  # 댓글 추가
 def team1_add_reply():
     cmtid_receive = request.form["id_give"]
     name_receive = request.form["name_give"]
@@ -255,12 +259,14 @@ def team1_add_reply():
     db.team1_reply.insert_one(doc)
     return jsonify({'msg': True})
 
-@app.route("/fourglass/team1_get_reply", methods=["POST"])    #댓글 불러오기
+
+@app.route("/fourglass/team1_get_reply", methods=["POST"])  # 댓글 불러오기
 def team1_get_reply():
     cmtid_receive = request.form["id_give"]
     find_list = list(db.team1_reply.find({"comment_id": cmtid_receive}, {'_id': 0}).sort('idx', -1))
-    #방명록의 id에 맞는 댓글을 _id를 제외하고 idx기준 내림차순으로 정렬
+    # 방명록의 id에 맞는 댓글을 _id를 제외하고 idx기준 내림차순으로 정렬
     return jsonify({'list': find_list})
+
 
 # team1 end-----------------------------------------------------------------------
 
