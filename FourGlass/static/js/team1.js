@@ -64,7 +64,6 @@ $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
 function modifyCheck(id){
     let name = $('#name'+id).val()
     let comment = $('#comment'+id).val()
-    alert(id)
     $.ajax({
         type : 'POST',
         url : "/fourglass/team1_update_cmt",
