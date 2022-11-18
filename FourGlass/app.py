@@ -20,7 +20,7 @@ db = client.sparta
 
 @app.route('/team4')
 def team4():
-    return render_template('team4.html')
+    return render_template('/members/team4.html')
 
 
 @app.route("/fourglass/team4_insert_review", methods=["POST"])
@@ -148,7 +148,7 @@ def main_del_cmt():
 
 @app.route('/team3')
 def team3comment():
-    return render_template('team3.html')
+    return render_template('members/team3.html')
 
 
 @app.route("/team3comment", methods=["POST"])
@@ -192,7 +192,7 @@ def team3_get():
 # =======
 @app.route('/team1')
 def team1():
-    return render_template('team1.html')
+    return render_template('members/team1.html')
 
 
 @app.route("/fourglass/team1_add_cmt", methods=["POST"])  # 방명록 남기기
@@ -273,7 +273,7 @@ def team1_get_reply():
 
 @app.route('/team2')
 def team2():
-    return render_template('team2.html')
+    return render_template('members/team2.html')
 
 
 @app.route("/fourglass/team2_add_cmt", methods=["POST"])
