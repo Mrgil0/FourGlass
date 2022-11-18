@@ -21,11 +21,11 @@ $(document).on('click', '#delBtn', function(){
             }
         })
     }
-    find_cmt(function(idx){
+    find_cmt(function(id){
          $.ajax({
             type: 'POST',
             url: 'fourglass/team1_del_cmt',
-            data: {'id_give': idx},
+            data: {'id_give': id},
             success: function (response) {
                 alert(response['msg'])
                 location.reload()
