@@ -28,21 +28,21 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
         });
     }
     create_index(function(rows){ //콜백함수 create_index가 성공해야 실행됨
-        let id =1
+        let idx =1
         for(let i=0; i<rows.length; i++) { //db에 아무것도 없을 경우 가져온 데이터가 undefined되어 idx를 1로 지정
             if(!isDefined(rows[0])){
                 break;
             }
             let temp = rows[i]['idx']
-            if (temp > id) {
-                id = temp
+            if (temp > idx) {
+                idx = temp
             }  //db의 index중 제일 큰값이 idx가 됨
-            id++
+            idx++
         }
-        $.ajax({    //방명록 추가
+        $.ajax({    //댓글 추가
             type: 'POST',
             url: add_url,          //클릭한 버튼의 url
-            data: {'id_give': id, 'name_give': name, 'comment_give': comment, 'pass_give': pass},
+            data: {'id_give': idx, 'name_give': name, 'comment_give': comment, 'pass_give': pass},
             success: function (response) {
                 alert(response['msg'])
                 location.reload()
