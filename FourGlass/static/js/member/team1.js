@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    show_comment('/fourglass/team1_get_cmt', '#sampleDiv') //댓글을 보일 리스트
+});
+
 function isDefined(value){
     if(value === undefined){ //value가 비정상적인 값이면 true 반환
         return false
@@ -5,12 +9,86 @@ function isDefined(value){
     return true
 }
 
+$(document).on('click', '#delBtn', function(){
+    let num = prompt('비밀번호를 입력하세요.')
+    let id = $(this).attr('class')
+    function find_cmt(callbackfunc) {
+        $.ajax({
+            type : 'POST',
+            url : '/fourglass/team1_find_cmt',
+            data : {'id_give': id},
+            success : function (response){
+                let result = response['result']
+                if(num === result[0]['pass']){
+                    callbackfunc(result[0]['idx'])
+                } else{
+                    modalOpen("비밀번호가 일치하지 않습니다.")
+                }
+            }
+        })
+    }
+    find_cmt(function(idx){
+         $.ajax({
+            type: 'POST',
+            url: 'fourglass/team1_del_cmt',
+            data: {'id_give': idx},
+            success: function (response) {
+                modalOpen(response['msg'])
+                location.reload()
+            }
+        });
+    });
+});
+
+$(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
+    let num = prompt('비밀번호를 입력하세요.')
+    let id = $(this).attr('class')    //댓글의 id번호 가져오기
+    function find_cmt(callbackfunc) {       //수정한 댓글의 비밀번호 확인
+        $.ajax({
+            type : 'POST',
+            url : '/fourglass/team1_find_cmt',
+            data : {'id_give': id},
+            success : function (response){
+                let result = response['result']
+                if(num === result[0]['pass']){
+                    callbackfunc(result[0]['idx'])
+                } else{
+                    modalOpen("비밀번호가 일치하지 않습니다.")
+                }
+            }
+        })
+    }
+    find_cmt(function(idx){     //댓글의 내용을 가져온 후 수정할수 있게 변경
+        alert("비밀번호가 일치합니다. 댓글을 수정 후 확인 버튼을 클릭하세요")
+        $('#comment'+idx).attr('readonly', false)
+        $('#comment'+idx).attr('onfocus', this.value=$('#comment'+idx).val())
+        $('#name'+idx).attr('readonly', false)
+        $('#name'+idx).attr('onfocus', this.value=$('#name'+idx).val())
+        $("#modifyCheckBtn"+idx).attr('style', 'visibility:visible')
+    })
+})
+function modifyCheck(id){
+    let name = $('#name'+id).val()
+    let comment = $('#comment'+id).val()
+    let date = getFormatDate(new Date())
+    $.ajax({
+        type : 'POST',
+        url : "/fourglass/team1_update_cmt",
+        data : {'id_give': id, 'name_give': name, 'comment_give': comment, 'date_give': date},
+        success : function(response){
+            modalOpen(response['msg'])
+            location.reload()
+        }
+    })
+}
+
 function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
     let name = $('#name').val();
     let comment = $('#comment').val();
     let pass = $('.pass').val();
+    let date = getFormatDate(new Date())
     if(name=="" || comment=="" || pass==""){ //유효성 검사
-        alert('빈칸이 없도록 입력해주세요.');
+        modalOpen("빈칸이 없도록 입력해주세요.")
         return;
     }
     function create_index(callbackfunc){ //db에서 comment리스트 가져오기
@@ -30,7 +108,7 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
     create_index(function(rows){ //콜백함수 create_index가 성공해야 실행됨
         let idx =1
         for(let i=0; i<rows.length; i++) { //db에 아무것도 없을 경우 가져온 데이터가 undefined되어 idx를 1로 지정
-            if(!isDefined(rows[0])){
+            if(!isDefined(rows[0])){       //값이 없으면 탈출
                 break;
             }
             let temp = rows[i]['idx']
@@ -42,9 +120,9 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
         $.ajax({    //댓글 추가
             type: 'POST',
             url: add_url,          //클릭한 버튼의 url
-            data: {'id_give': idx, 'name_give': name, 'comment_give': comment, 'pass_give': pass},
+            data: {'id_give': idx, 'name_give': name, 'comment_give': comment, 'pass_give': pass, 'date_give': date},
             success: function (response) {
-                alert(response['msg'])
+                modalOpen(response['msg'])
                 location.reload()
             },
             error: function (response) {
@@ -66,10 +144,12 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                 let idx = rows[i]['idx']
                 let name = rows[i]['name']
                 let comment = rows[i]['comment']
+                let date = rows[i]['date']
                 let temp_div = `<div style="overflow: hidden">
                                     <input class="commentName" id="name${idx}" name="name" type="text" readonly value="${name}" onfocus="this.blur();">
                                     <input class="commentText" id="comment${idx}" name="comment" type="text" readonly value="${comment}" onfocus="this.blur();">
                                     <button class="${idx}" id="replyModalBtn" type="button">답글 보기</button>
+                                    <div class="timeBlock">${date}</div>
                                     <button class="${idx}" id="delBtn" type="button">삭제</button>
                                     <button class="${idx}" id="modifyBtn" type="button">수정</button>
                                     <div id="hiddenBtn">

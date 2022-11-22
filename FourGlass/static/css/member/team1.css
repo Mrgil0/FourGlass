@@ -92,3 +92,11 @@
     margin:0 3px;
     padding:10px;
 }
+.timeBlock{
+    float:left;
+    display:inline-block;
+    margin:0 3px;
+    text-align:center;
+    padding:10px;
+    border: 1px;
+}

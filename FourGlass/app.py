@@ -201,11 +201,13 @@ def team1_add_cmt():
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
     pass_receive = request.form["pass_give"]
+    date_receive = request.form["date_give"]
     doc = {
         'idx': id_receive,
         'name': name_receive,
         'comment': comment_receive,
-        'pass': pass_receive
+        'pass': pass_receive,
+        'date': date_receive
     }
     db.team1_comment.insert_one(doc)
     return jsonify({'msg': '방명록 작성 완료!'})
@@ -214,6 +216,7 @@ def team1_add_cmt():
 @app.route("/fourglass/team1_get_cmt", methods=["GET"])  # 방명록 목록 가져오기
 def team1_get_cmt():
     comment_list = list(db.team1_comment.find({}, {'_id': False}))
+    print(comment_list)
     return jsonify({'comments': comment_list})
 
 
@@ -230,6 +233,7 @@ def team1_find_cmt():
 def team1_del_cmt():
     id_receive = int(request.form["id_give"])
     db.team1_comment.delete_one({'idx': id_receive})
+    db.team1_reply.delete_one({'idx': id_receive})
     return jsonify({'msg': '삭제 완료!'})
 
 
@@ -238,8 +242,9 @@ def team1_update_cmt():
     id_receive = int(request.form["id_give"])
     name_receive = request.form["name_give"]
     comment_receive = request.form["comment_give"]
+    date_receive = request.form["date_give"]
     db.team1_comment.update_one({'idx': id_receive}, {
-        '$set': {'name': name_receive, 'comment': comment_receive}})
+        '$set': {'name': name_receive, 'comment': comment_receive, 'date': date_receive}})  #idx에 맞는 데이터를 name과 comment를 받아온 걸로 수정한다.
     return jsonify({'msg': '수정 완료!'})
 
 
