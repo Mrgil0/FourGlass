@@ -9,85 +9,16 @@ function isDefined(value){
     return true
 }
 
-$(document).on('click', '#delBtn', function(){
-    let num = prompt('비밀번호를 입력하세요.')
-    let id = $(this).attr('class')
-    function find_cmt(callbackfunc) {
-        $.ajax({
-            type : 'POST',
-            url : '/fourglass/team1_find_cmt',
-            data : {'id_give': id},
-            success : function (response){
-                let result = response['result']
-                if(num === result[0]['pass']){
-                    callbackfunc(result[0]['idx'])
-                } else{
-                    modalOpen("비밀번호가 일치하지 않습니다.")
-                }
-            }
-        })
-    }
-    find_cmt(function(idx){
-         $.ajax({
-            type: 'POST',
-            url: 'fourglass/team1_del_cmt',
-            data: {'id_give': idx},
-            success: function (response) {
-                modalOpen(response['msg'])
-                location.reload()
-            }
-        });
-    });
-});
+let clicked = 0
 
-$(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
-    let num = prompt('비밀번호를 입력하세요.')
-    let id = $(this).attr('class')    //댓글의 id번호 가져오기
-    function find_cmt(callbackfunc) {       //수정한 댓글의 비밀번호 확인
-        $.ajax({
-            type : 'POST',
-            url : '/fourglass/team1_find_cmt',
-            data : {'id_give': id},
-            success : function (response){
-                let result = response['result']
-                if(num === result[0]['pass']){
-                    callbackfunc(result[0]['idx'])
-                } else{
-                    modalOpen("비밀번호가 일치하지 않습니다.")
-                }
-            }
-        })
-    }
-    find_cmt(function(idx){     //댓글의 내용을 가져온 후 수정할수 있게 변경
-        alert("비밀번호가 일치합니다. 댓글을 수정 후 확인 버튼을 클릭하세요")
-        $('#comment'+idx).attr('readonly', false)
-        $('#comment'+idx).attr('onfocus', this.value=$('#comment'+idx).val())
-        $('#name'+idx).attr('readonly', false)
-        $('#name'+idx).attr('onfocus', this.value=$('#name'+idx).val())
-        $("#modifyCheckBtn"+idx).attr('style', 'visibility:visible')
-    })
-})
-function modifyCheck(id){
-    let name = $('#name'+id).val()
-    let comment = $('#comment'+id).val()
-    let date = getFormatDate(new Date())
-    $.ajax({
-        type : 'POST',
-        url : "/fourglass/team1_update_cmt",
-        data : {'id_give': id, 'name_give': name, 'comment_give': comment, 'date_give': date},
-        success : function(response){
-            modalOpen(response['msg'])
-            location.reload()
-        }
-    })
-}
-
+//댓글 추가
 function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
     let name = $('#name').val();
     let comment = $('#comment').val();
     let pass = $('.pass').val();
     let date = getFormatDate(new Date())
     if(name=="" || comment=="" || pass==""){ //유효성 검사
+        clicked = 1
         modalOpen("빈칸이 없도록 입력해주세요.")
         return;
     }
@@ -122,8 +53,8 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
             url: add_url,          //클릭한 버튼의 url
             data: {'id_give': idx, 'name_give': name, 'comment_give': comment, 'pass_give': pass, 'date_give': date},
             success: function (response) {
+                clicked = 1
                 modalOpen(response['msg'])
-                location.reload()
             },
             error: function (response) {
                 console.log(response);
@@ -132,6 +63,100 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
     });
 }
 
+//댓글 삭제
+$(document).on('click', '#delBtn', function(){
+    let id = $(this).attr('class')
+    let prompt = $("#prompt"+id)
+    if(prompt.val() == ''){
+        clicked = 1
+        modalOpen("비밀번호를 입력하세요")
+        return
+    }
+
+    function find_cmt(callbackfunc) {
+        $.ajax({
+            type : 'POST',
+            url : '/fourglass/team1_find_cmt',
+            data : {'id_give': id},
+            success : function (response){
+                let result = response['result']
+                if(prompt.val() === result[0]['pass']){
+                    callbackfunc(result[0]['idx'])
+                } else{
+                    clicked = 1
+                    modalOpen("비밀번호가 일치하지 않습니다.")
+                }
+            }
+        })
+    }
+    find_cmt(function(idx){
+         $.ajax({
+            type: 'POST',
+            url: 'fourglass/team1_del_cmt',
+            data: {'id_give': idx},
+            success: function (response) {
+                clicked = 1
+                modalOpen(response['msg'])
+            }
+        });
+    });
+});
+
+//댓글 수정 과정
+$(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
+    let comment_id = $(this).attr('class')    //댓글의 id번호 가져오기
+    let prompt = $("#prompt"+comment_id)
+    if(prompt.val() == ''){
+        clicked = 1
+        modalOpen("비밀번호를 입력하세요")
+        return
+    }
+    function password_check(callbackfunc){
+        $.ajax({
+            type: 'POST',
+            url: '/fourglass/team1_find_cmt',
+            data: {'id_give': comment_id},
+            success: function (response) {
+                let result = response['result']
+                if (prompt.val() === result[0]['pass']) {
+                    callbackfunc((result[0]['idx']))
+                } else {
+                    clicked = 1
+                    modalOpen("비밀번호가 일치하지 않습니다.")
+                    prompt.val() == ''
+                }
+            }
+        })
+    }
+    password_check(function(idx){
+        clicked = 0
+        modalOpen("비밀번호가 일치합니다. <br> 댓글을 수정 후 확인 버튼을 클릭하세요")
+        prompt.val('')
+        $('#comment'+idx).attr('readonly', false)
+        $('#comment'+idx).attr('onfocus', this.value=$('#comment'+idx).val())
+        $('#name'+idx).attr('readonly', false)
+        $('#name'+idx).attr('onfocus', this.value=$('#name'+idx).val())
+        $("#modifyCheckBtn"+idx).attr('style', 'visibility:visible')
+    })
+})
+
+//댓글 수정 확인
+function modifyCheck(id){
+    let name = $('#name'+id).val()
+    let comment = $('#comment'+id).val()
+    let date = getFormatDate(new Date())
+    $.ajax({
+        type : 'POST',
+        url : "/fourglass/team1_update_cmt",
+        data : {'id_give': id, 'name_give': name, 'comment_give': comment, 'date_give': date},
+        success : function(response){
+            clicked = 1
+            modalOpen(response['msg'])
+        }
+    })
+}
+
+//댓글 보여주기
 function show_comment(show_url, add_tag){   //방명록 보여주기
     $(add_tag).empty() // 칸 비우기
     $.ajax({
@@ -152,6 +177,7 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                                     <div class="timeBlock">${date}</div>
                                     <button class="${idx}" id="delBtn" type="button">삭제</button>
                                     <button class="${idx}" id="modifyBtn" type="button">수정</button>
+                                    <input class="passwordInput" type="text" id="prompt${idx}" type="password" placeholder="비밀번호">
                                     <div id="hiddenBtn">
                                     <button class="${idx}" id="modifyCheckBtn${idx}" onclick="modifyCheck(${idx})" type="button">확인</button>
                                     </div>
@@ -173,6 +199,7 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
     })
 }
 
+//답글 열고 닫기
 $(document).on('click', '#replyModalBtn', function(){   //답글을 열고 닫기 위한 함수
     let id = $(this).attr('class')
     $('#showReply'+id).empty()
@@ -202,6 +229,7 @@ $(document).on('click', '#replyModalBtn', function(){   //답글을 열고 닫�
     })
 })
 
+//답글 추가
 $(document).on('click', '#replyBtn', function(){
     let id = $(this).attr('class')
     let replyName = $('#replyName'+id).val()

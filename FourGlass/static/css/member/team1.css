@@ -53,6 +53,14 @@
     padding:10px;
     border: 1px;
 }
+.passwordInput{
+    float:right;
+    width:88px;
+    margin:0 3px;
+    text-align:center;
+    padding:10px;
+    border: 1px solid #777777;
+}
 #delBtn{
     margin-right: 50px;
 }

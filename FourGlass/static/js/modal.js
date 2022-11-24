@@ -8,6 +8,8 @@ $(document).on('click', '#modalClose', function(){
 
 function modalOpen(str){
     $('#modal').css('display', 'flex')
+    $('#modal.modal-overlay').css('width', document.documentElement.scrollWidth)
+    $('#modal.modal-overlay').css('height', document.documentElement.scrollHeight)
     $('#context').html(str)
 }
 
@@ -22,5 +24,13 @@ $(document).keyup(function(e){
     const modal = $('#modal').css('display')
     if(modal === "flex" && e.key === "Escape") {    //모달창이 켜진 상태에서 esc를 누르면 꺼짐
         $("#modal").css('display', 'none')
+    }
+})
+
+$("#modalClose").click(function(){
+    $('#modal').css('display', 'none')
+    if(clicked == 1){
+        clicked = 0
+        location.reload()
     }
 })

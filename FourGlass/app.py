@@ -7,13 +7,13 @@ app = Flask(__name__)
 
 ca = certifi.where()
 
-# client = MongoClient(
-#     "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-# db = client.sparta
+client = MongoClient(
+     "mongodb+srv://test:sparta@cluster0.uerebxa.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+db = client.sparta
 
 
-client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
-db = client.dbsparta
+#client = MongoClient('mongodb+srv://test:sparta@cluster0.sbbe9i1.mongodb.net/?retryWrites=true&w=majority')
+#db = client.dbsparta
 
 # *----------------------송지훈------------------------------
 
@@ -216,7 +216,6 @@ def team1_add_cmt():
 @app.route("/fourglass/team1_get_cmt", methods=["GET"])  # 방명록 목록 가져오기
 def team1_get_cmt():
     comment_list = list(db.team1_comment.find({}, {'_id': False}))
-    print(comment_list)
     return jsonify({'comments': comment_list})
 
 
