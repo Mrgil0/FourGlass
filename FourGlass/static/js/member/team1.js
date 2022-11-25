@@ -171,30 +171,30 @@ function show_comment(show_url, add_tag){   //방명록 보여주기
                 let comment = rows[i]['comment']
                 let date = rows[i]['date']
                 let temp_div = `<div style="overflow: hidden">
-                                    <input class="commentName" id="name${idx}" name="name" type="text" readonly value="${name}" onfocus="this.blur();">
-                                    <input class="commentText" id="comment${idx}" name="comment" type="text" readonly value="${comment}" onfocus="this.blur();">
-                                    <button class="${idx}" id="replyModalBtn" type="button">답글 보기</button>
-                                    <div class="timeBlock">${date}</div>
-                                    <button class="${idx}" id="delBtn" type="button">삭제</button>
-                                    <button class="${idx}" id="modifyBtn" type="button">수정</button>
-                                    <input class="passwordInput" type="text" id="prompt${idx}" type="password" placeholder="비밀번호">
-                                    <div id="hiddenBtn">
-                                    <button class="${idx}" id="modifyCheckBtn${idx}" onclick="modifyCheck(${idx})" type="button">확인</button>
-                                    </div>
+                                <input class="commentName" id="name${idx}" name="name" type="text" readonly value="${name}" onfocus="this.blur();">
+                                <input class="commentText" id="comment${idx}" name="comment" type="text" readonly value="${comment}" onfocus="this.blur();">
+                                <button class="${idx}" id="replyModalBtn" type="button">답글 보기</button>
+                                <div class="timeBlock">${date}</div>
+                                <button class="${idx}" id="delBtn" type="button">삭제</button>
+                                <button class="${idx}" id="modifyBtn" type="button">수정</button>
+                                <input class="passwordInput" id="prompt${idx}" type="password" placeholder="비밀번호">
+                                <div id="hiddenBtn">
+                                <button class="${idx}" id="modifyCheckBtn${idx}" onclick="modifyCheck(${idx})" type="button">확인</button>
                                 </div>
-                                <div id="replyModal${idx}" style="display:none">
-                                <hr>
-                                    <div style="display:table" id="showReply${idx}"></div>
-                                    <div style="overflow: hidden" id="replyCmt">
-                                        <input class="replyName" id="replyName${idx}" name="replyName" type="text" placeholder="이름">
-                                        <input class="replyText" id="replyText${idx}" name="replyText" type="text" placeholder="답글">
-                                        <button class="${idx}" id="replyBtn" type="button">댓글 달기</button>
-                                    </div>
+                            </div>
+                            <div id="replyModal${idx}" style="display:none">
+                            <hr>
+                                <div style="display:table" id="showReply${idx}"></div>
+                                <div style="overflow: hidden" id="replyCmt">
+                                    <input class="replyName" id="replyName${idx}" name="replyName" type="text" placeholder="이름">
+                                    <input class="replyText" id="replyText${idx}" name="replyText" type="text" placeholder="답글">
+                                    <button class="${idx}" id="replyBtn" type="button">댓글 달기</button>
                                 </div>
-                                <hr>`
-
+                            </div>
+                            <hr>`
                 $(add_tag).prepend(temp_div)
             }
+
         }
     })
 }

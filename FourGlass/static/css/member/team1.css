@@ -18,22 +18,32 @@
     height: 300px;
     font-size: 40px;
 }
+.name, .comment, .pass{
+    height : 44px;
+}
 .picture{
     width : 100%x;
     height : 100%;
 }
 .addComment{
     display : inline-block;
-    border : 3px inset #000;
+    margin:0 3px;
+    padding:10px;
+    border : 1px;
 }
 .addComment:hover{
     background-color: #777;
 }
 .name{
-    width:120px;
+    width:88px;
+    margin-right : 2px;
+}
+.comment{
+    left : 20px;
+    margin-right : 2px;
 }
 .pass{
-    width:120px;
+    width:88px;
 }
 .dotted{
     border:#039 2px dotted;
@@ -69,6 +79,20 @@
     margin:0 3px;
     padding:10px;
     border: 1px;
+}
+#delBtn:hover{
+    background-color: #777;
+}
+
+#modifyBtn:hover{
+    background-color: #777;
+}
+
+#hiddenBtn:hover{
+    background-color: #777;
+}
+#replyModalBtn:hover{
+    background-color: #777;
 }
 #replyModalBtn{
     padding:10px;
