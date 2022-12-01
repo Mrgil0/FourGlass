@@ -224,7 +224,6 @@ def team1_find_cmt():
     id_receive = int(request.form['id_give'])
     find_list = list(db.team1_comment.find(
         {"idx": id_receive}, {'_id': 0}))  # '_id' 제외(0)하고 찾음
-    print(find_list)
     return jsonify({'result': find_list})
 
 

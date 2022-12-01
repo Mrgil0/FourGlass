@@ -1,28 +1,34 @@
 $(document).ready(function(){
-    show_comment('/fourglass/team1_get_cmt', '#sampleDiv') //댓글을 보일 리스트
+    show_comment('/fourglass/team1_get_cmt', '#sampleDiv')
 });
 
 function isDefined(value){
-    if(value === undefined){ //value가 비정상적인 값이면 true 반환
+    if(value === undefined){
         return false
     }
     return true
 }
-
 let clicked = 0
 
-//댓글 추가
-function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_url, 추가할 add_url
+function isEmpty(value, toggle){
+    clicked = 1
+    if(value == ""){
+        modalOpen("빈칸이 없도록 입력해주세요.")
+    } else if(toggle == 0){
+        clicked = 0
+        modalOpen(value)
+    }
+}
+
+function create_comment(get_url, add_url){
     let name = $('#name').val();
     let comment = $('#comment').val();
     let pass = $('.pass').val();
     let date = getFormatDate(new Date())
-    if(name=="" || comment=="" || pass==""){ //유효성 검사
-        clicked = 1
-        modalOpen("빈칸이 없도록 입력해주세요.")
-        return;
-    }
-    function create_index(callbackfunc){ //db에서 comment리스트 가져오기
+    isEmpty(name, clicked)
+    isEmpty(comment, clicked)
+    isEmpty(pass, clicked)
+    function get_index(callbackfunc){
         $.ajax({
             type : "GET",
             url : get_url,
@@ -36,10 +42,10 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
             }
         });
     }
-    create_index(function(rows){ //콜백함수 create_index가 성공해야 실행됨
+    get_index(function(rows){
         let idx =1
-        for(let i=0; i<rows.length; i++) { //db에 아무것도 없을 경우 가져온 데이터가 undefined되어 idx를 1로 지정
-            if(!isDefined(rows[0])){       //값이 없으면 탈출
+        for(let i=0; i<rows.length; i++) {
+            if(!isDefined(rows[0])){
                 break;
             }
             let temp = rows[i]['idx']
@@ -50,11 +56,10 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
         }
         $.ajax({    //댓글 추가
             type: 'POST',
-            url: add_url,          //클릭한 버튼의 url
+            url: add_url,
             data: {'id_give': idx, 'name_give': name, 'comment_give': comment, 'pass_give': pass, 'date_give': date},
             success: function (response) {
-                clicked = 1
-                modalOpen(response['msg'])
+                isEmpty(response['msg'], clicked)
             },
             error: function (response) {
                 console.log(response);
@@ -63,16 +68,10 @@ function create_comment(get_url, add_url){ //리스트 가져오기 위한 get_u
     });
 }
 
-//댓글 삭제
 $(document).on('click', '#delBtn', function(){
     let id = $(this).attr('class')
     let prompt = $("#prompt"+id)
-    if(prompt.val() == ''){
-        clicked = 1
-        modalOpen("비밀번호를 입력하세요")
-        return
-    }
-
+    isEmpty(prompt.val())
     function find_cmt(callbackfunc) {
         $.ajax({
             type : 'POST',
@@ -80,12 +79,11 @@ $(document).on('click', '#delBtn', function(){
             data : {'id_give': id},
             success : function (response){
                 let result = response['result']
-                if(prompt.val() === result[0]['pass']){
-                    callbackfunc(result[0]['idx'])
-                } else{
-                    clicked = 1
-                    modalOpen("비밀번호가 일치하지 않습니다.")
+                if(prompt.val() != result[0]['pass']){
+                    isEmpty("비밀번호가 일치하지 않습니다.", 0)
+                    return
                 }
+                callbackfunc(result[0]['idx'])
             }
         })
     }
@@ -95,22 +93,16 @@ $(document).on('click', '#delBtn', function(){
             url: 'fourglass/team1_del_cmt',
             data: {'id_give': idx},
             success: function (response) {
-                clicked = 1
-                modalOpen(response['msg'])
+                isEmpty(response['msg'], clicked)
             }
         });
     });
 });
 
-//댓글 수정 과정
 $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
     let comment_id = $(this).attr('class')    //댓글의 id번호 가져오기
     let prompt = $("#prompt"+comment_id)
-    if(prompt.val() == ''){
-        clicked = 1
-        modalOpen("비밀번호를 입력하세요")
-        return
-    }
+    isEmpty(prompt.val(), clicked)
     function password_check(callbackfunc){
         $.ajax({
             type: 'POST',
@@ -118,19 +110,16 @@ $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
             data: {'id_give': comment_id},
             success: function (response) {
                 let result = response['result']
-                if (prompt.val() === result[0]['pass']) {
-                    callbackfunc((result[0]['idx']))
-                } else {
-                    clicked = 1
-                    modalOpen("비밀번호가 일치하지 않습니다.")
-                    prompt.val() == ''
+                if (prompt.val() != result[0]['pass']) {
+                    isEmpty("비밀번호가 일치하지 않습니다.", 0)
+                    return
                 }
+                callbackfunc((result[0]['idx']))
             }
         })
     }
     password_check(function(idx){
-        clicked = 0
-        modalOpen("비밀번호가 일치합니다. <br> 댓글을 수정 후 확인 버튼을 클릭하세요")
+        isEmpty("비밀번호가 일치합니다. <br> 댓글을 수정 후 확인 버튼을 클릭하세요", 0)
         prompt.val('')
         $('#comment'+idx).attr('readonly', false)
         $('#comment'+idx).attr('onfocus', this.value=$('#comment'+idx).val())
@@ -140,7 +129,6 @@ $(document).on('click', '#modifyBtn', function(){   //수정 버튼 클릭
     })
 })
 
-//댓글 수정 확인
 function modifyCheck(id){
     let name = $('#name'+id).val()
     let comment = $('#comment'+id).val()
@@ -150,13 +138,11 @@ function modifyCheck(id){
         url : "/fourglass/team1_update_cmt",
         data : {'id_give': id, 'name_give': name, 'comment_give': comment, 'date_give': date},
         success : function(response){
-            clicked = 1
-            modalOpen(response['msg'])
+            isEmpty(response['msg'], clicked)
         }
     })
 }
 
-//댓글 보여주기
 function show_comment(show_url, add_tag){   //방명록 보여주기
     $(add_tag).empty() // 칸 비우기
     $.ajax({
@@ -251,3 +237,8 @@ $(document).on('click', '#replyBtn', function(){
         }
     });
 })
+
+
+// function 함수명(매개변수){}
+// $('#ID값').click(function(e){}
+// $(document).on('click', '#ID값', function(){}
